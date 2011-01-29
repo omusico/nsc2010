@@ -13,7 +13,7 @@ class ServiceProvider_Model_ServiceProvider extends NSC_Model_Validate
             'required' => true,
             'unique' => true
         ),
-        'sp_type' => array(
+        'sp_type_id' => array(
             'label' => 'Type',
             'required' => true
         ),
@@ -115,13 +115,32 @@ class ServiceProvider_Model_ServiceProvider extends NSC_Model_Validate
      */
     public function getList($option = null)
     {
-        $select = $this->select();
+        $select = "SELECT * 
+                    FROM service_provider 
+                    LEFT JOIN service_provider_types ON sp_type_id = spt_id
+                    LEFT JOIN state ON sp_state_id = s_id
+                ";
+        $where = '';
+        $ind = 0;
         if (!is_null($option) && is_array($option)) {
             foreach ($option as $fieldName => $value) {
-                $select->where("$fieldName = ?", $value);
+                if (0 === $ind) {
+                    $where .= ' WHERE ';
+                } else {
+                    $where .= ' AND ';
+                }
+                $where .= " $fieldName = '$value'";
+                $ind++;
             }
         }
-        return $this->fetchAll($select);
+
+        $select .= $where;
+
+        $stmt = $this->getDefaultAdapter()->query($select);
+
+        $result = $stmt->fetchAll();
+
+        return $result;
     }
 
     public function getSpList($offset = 0, $count = 20, $filterOptions = null)
@@ -129,6 +148,7 @@ class ServiceProvider_Model_ServiceProvider extends NSC_Model_Validate
         $limit = "LIMIT $offset, $count";
         $select  = "SELECT SQL_CALC_FOUND_ROWS * FROM service_provider";
         $join = " LEFT JOIN state ON sp_state_id = s_id";
+        $join .= " LEFT JOIN service_provider_types ON sp_type_id = spt_id";
         $where = "";
         $orderBy = " ORDER BY ";
 
@@ -240,6 +260,7 @@ class ServiceProvider_Model_ServiceProvider extends NSC_Model_Validate
                     FROM service_provider
                     LEFT JOIN state ON sp_state_id = s_id
                     LEFT JOIN equipment_maintenance ON sp_id = em_service_provider_id
+                    LEFT JOIN service_provider_types ON sp_type_id = spt_id
                     WHERE sp_id = {$this->getDefaultAdapter()->quote($spId)}
                     GROUP BY em_service_provider_id
                     ";

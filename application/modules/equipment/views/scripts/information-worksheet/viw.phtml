@@ -220,7 +220,7 @@
                     <tr>
                         <td><label class="required"><span>*</span>Type</label></td>
                         <td>
-                            <select  class="rc10" name="e_type_id" id="e_type_id" onchange="changeType();">
+                            <select  class="rc10" name="e_type_id" id="e_type_id" onblur="changeType();" onchange="changeType();">
                                 <?php
                                 foreach ($this->layout()->equipmentTypes as $key => $value) {
                                     if (isset($value['selected']) && $value['selected']) {

@@ -1,0 +1,26 @@
+<table cellspacing="0" class="inform" style="float: none; width: 889px;">
+    <tbody>
+    <tr>
+        <th colspan="2">
+            <h2><?= $this->layout()->header; ?></h2>
+        </th>
+    </tr>
+    </tbody>
+</table>
+<table cellspacing="0" class="inform" style="float: none; width: 889px;">
+    <tbody>
+        <tr  class="color-dark">
+            <td colspan="2">
+                <?= $this->layout()->message; ?>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<?= $this->partial('partials/index/_add-inspection-equipment.phtml', array(
+                                        'inspectionTypeList' => $this->layout()->inspectionTypeList,
+                                        'inspectionResultList' => $this->layout()->inspectionResultList,
+                                        'inspectorList' => $this->layout()->inspectorList,
+                                        'identity' => $this->layout()->identity
+                                    )
+                );
+?>

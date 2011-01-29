@@ -1,0 +1,11 @@
+<tr class="<?= ($this->partialCounter % 2 == 0) ? 'color-dark' : ''; ?>">
+    <td><?= $this->ins_id;?></td>
+    <td><?= $this->e_Number; ?></td>
+    <td><?= $this->it_type; ?></td>
+    <td><?= $this->ir_result; ?>  </td>
+    <td><?= $this->in_name; ?>  </td>
+    <td><?= $this->ins_start_date; ?>  </td>
+    <td>
+        <a href="/inspection/index/index/id/<?= $this->ins_id; ?>">Profile</a>
+    </td>
+</tr>

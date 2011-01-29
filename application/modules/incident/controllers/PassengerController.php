@@ -79,7 +79,7 @@ class Incident_PassengerController extends Zend_Controller_Action
                 $passengers = $passengerModel->getListByIncident($incidentId);
 
                 $layout = new Zend_Layout();
-                $layout->setLayoutPath(APPLICATION_PATH.'/modules/incident/views/scripts/partials/index/');
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/incident/views/scripts/partials/index/');
 
                 $layout->i_ID = $incidentId;
                 $layout->header =  'Passenger Information - involved in Incident';

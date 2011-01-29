@@ -30,7 +30,8 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                         ),
         'e_License_Expiration_Date' => array(
                             'required' => true,
-                            'label' => 'License expiration date'
+                            'label' => 'License expiration date',
+                            'type' => 'date'
                         ),
         'e_License_Number' => array(
                             'required' => true,
@@ -42,7 +43,8 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                         ),
         'e_Registration_State' => array(
                             'required' => true,
-                            'label' => 'Registration state'
+                            'label' => 'Registration state',
+                            'displayField' => 's_name'
                         ),
         'e_Gross_Equipment_Weight_Rating' => array(
                             'required' => false,
@@ -90,7 +92,8 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                         ),
         'e_type_id' => array(
                             'required' => true,
-                            'label' => 'Type'
+                            'label' => 'Type',
+                            'displayField' => 'et_type'
                         ),
         'e_Picture' => array(
                             'required' => false,
@@ -114,7 +117,8 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                         ),
         'e_valuation_date' => array(
                             'required' => false,
-                            'label' => 'Valuation Date'
+                            'label' => 'Valuation Date',
+                            'type' => 'date'
                         ),
         'e_valuation_value' => array(
                             'required' => false,
@@ -125,6 +129,16 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
                             'label' => 'Number of Passenger Seats'
                         )
     );
+
+    public function  __get($name)
+    {
+        $result = null;
+        if (property_exists($this, $name)) {
+            $result = $this->$name;
+        }
+
+        return $result;
+    }
 
     public function getArchivesList($offset = 0, $count = 20, $filterOptions = null)
     {
@@ -278,6 +292,7 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
         $select = "SELECT *
                     FROM equipment
                     LEFT JOIN equipment_types ON e_type_id = et_id
+                    LEFT JOIN state ON e_Registration_State = s_id
                     WHERE e_id = {$this->getDefaultAdapter()->quote($id)}
             ";
 
@@ -514,12 +529,11 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
             $select = "SELECT e_last_modified_datetime,
                                 ea_last_modified_datetime,
                                 MAX(em_last_modified_datetime) as max_em_date_time,
-                                (e_last_modified_datetime - ea_last_modified_datetime) as compare,
-                                (e_last_modified_datetime - MAX(em_last_modified_datetime)) as em_compare,
-                                (ea_last_modified_datetime - MAX(em_last_modified_datetime)) as eam_compare
+                                MAX(ins_last_modified_datetime) as max_ins_date_time
                         FROM equipment
                         LEFT JOIN equipment_assignment ON e_id = ea_equipment_id
                         LEFT JOIN equipment_maintenance ON e_id = em_equipment_id
+                        LEFT JOIN inspection ON e_id = ins_equipment_id
                         WHERE e_id = {$this->getDefaultAdapter()->quote($id)}
                         GROUP BY e_id, ea_equipment_id, em_equipment_id";
 
@@ -529,13 +543,22 @@ class Equipment_Model_Equipment extends NSC_Model_Validate
             $resultArray = $stmt->fetchAll();
             $row = (count($resultArray) > 0) ? $resultArray[0] : null;
             if (!is_null($row)) {
-                if ($row['compare'] < 0 && $row['eam_compare'] > 0) {
-                    $result = $row['ea_last_modified_datetime'];
-                } else if ($row['em_compare'] < 0) {
-                    $result = $row['max_em_date_time'];
-                } else {
-                    $result = $row['e_last_modified_datetime'];
+                foreach ($row as $key => $value) {
+                    if (is_null($value)) {
+                        continue;
+                    }
+                    $unsortArray[] = $value;
                 }
+                rsort($unsortArray);
+                $result = $unsortArray[0];
+
+//                if ($row['compare'] < 0 && $row['eam_compare'] > 0) {
+//                    $result = $row['ea_last_modified_datetime'];
+//                } else if ($row['em_compare'] < 0) {
+//                    $result = $row['max_em_date_time'];
+//                } else {
+//                    $result = $row['e_last_modified_datetime'];
+//                }
             }
         }
 

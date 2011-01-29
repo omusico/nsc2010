@@ -1,7 +1,7 @@
           <div class="bottom-nav">
-            <span class="name-driver">Driver:&nbsp;<span>Rene Del Rio</span></span>
+            <span class="name-driver">Driver:&nbsp;<span><?php echo $this->driverInfo['d_First_Name']." ".$this->driverInfo['d_Middle_Name']." ".$this->driverInfo['d_Last_Name'];?></span></span>
           </div>
- 
+
 <div class="breadcrumbs-left">
     <div class="breadcrumbs-right">
         <div class="breadcrumbs-middle">
@@ -48,7 +48,7 @@
         </tr>
             <?php echo $this->partial('partials/_dqf-form-row.phtml',array('documentsFormList' => $this->documentsFormList,'driverInfo' => $this->driverInfo)); ?>
 
-        
+
         <tr><td colspan="8">&nbsp;</td></tr>
       </table>
 
@@ -58,7 +58,7 @@
         <div class="col">
           <ul>
             <li>Driver Actions<ul>
-              <li><a href="#">View/Update Driver Profile (DIW)</a></li></ul></li>
+              <li><a href="/driver/driver/view-driver-Information/id/<?php echo $this->driverInfo['d_ID']; ?>">View/Update Driver Profile (DIW)</a></li></ul></li>
           </ul>
           <ul>
             <li>Documents Actions<ul>
@@ -76,7 +76,7 @@
           </ul>
           <ul>
             <li>Renewal Actions<ul>
-              <li><a href="#">Annual Review of Motor Vehicle Report</a></li>
+              <li><a href="/report/report/annual-review-of-motor-vehicle-report/driver_id/<?php echo $this->driverInfo['d_ID']; ?>">Annual Review of Motor Vehicle Report</a></li>
               <li><a href="#">Request Record of Violations</a></li></ul></li>
 
           </ul>

@@ -20,7 +20,7 @@ $(function() {
     );
 
    $("#exitSubmit").click(function() {
-        if ($("#sp_name").val() == "" &&  $(".sp_type_class:checked").val() == "Repair") {
+        if ($("#sp_name").val() == "" &&  $("#sp_type_id").val() == "") {
             window.location = "/serviceProvider/list" ;
         } else {
             $dialogExit.dialog("open");
@@ -37,7 +37,7 @@ function saveSp() {
     $.getJSON("/serviceProvider/index/save",
             {
                 sp_name : $("#sp_name").val(),
-                sp_type : $(".sp_type_class:checked").val()
+                sp_type_id : $("#sp_type_id").val()
             }, function(data) {
                 if (data.result == 1) {
                     //window.location = "/serviceProvider/list" ;

@@ -164,7 +164,7 @@ class Maintenance_MaintenanceController extends Zend_Controller_Action
 
                 // create service provider select.
                 $spModel = new ServiceProvider_Model_ServiceProvider();
-                $spList = $spModel->getList(array('sp_type' => 'Repair'));
+                $spList = $spModel->getList(array('spt_type' => 'Repair'));
 
                 $selectSpArray = array('' => '-');
                 foreach ($spList as $sp) {
@@ -225,7 +225,7 @@ class Maintenance_MaintenanceController extends Zend_Controller_Action
                 }
 
                 $layout = new Zend_Layout();
-                $layout->setLayoutPath(APPLICATION_PATH.'/modules/maintenance/views/scripts/partials/index/');
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/maintenance/views/scripts/partials/index/');
                 $layout->header =  'Equipment - Monthly Maintenance';
 
                 if ($maintenances) {

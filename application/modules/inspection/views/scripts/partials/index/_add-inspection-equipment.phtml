@@ -1,0 +1,137 @@
+<table cellspacing="0" class="inform addInspectionTableClass" style="float: none; width: 889px;">
+    <tbody>
+        <tr class="title-dark">
+            <?php if ($this->layout()->identity->permissions->equipment_inspection_create_permission === true) : ?>
+                <td colspan="2">
+                    ADD INSPECTION [ <a class="InspectionAddLinkClass"
+                                         onclick="$('.addInspectionTableClass').toggle('slow');">VIEW</a> ]
+                </td>
+            <?php endif; ?>
+        </tr>
+    </tbody>
+</table>
+<table cellspacing="0" class="inform addInspectionTableClass" id="addInspectionTable"
+       style="display : none; float: none; width: 889px;">
+    <tr class="title-dark">
+        <td colspan="2">
+            ADD INSPECTION [ <a class="InspectionAddLinkClass"
+                                 onclick="$('.addInspectionTableClass').toggle('slow');">HIDE</a> ]
+        </td>
+    </tr>
+    <tr  class="color-dark">
+        <td width="150">
+            <label class="required">
+                <span>*</span>Start Date:
+            </label>
+        </td>
+        <td>
+            <input type="text" class="inspectionDate" id="ins_start_date" size=12 />&nbsp;&nbsp;&nbsp;
+            <label class="required">
+                <span>*</span>Start Time:
+            </label>
+            <input type="text" id="ins_start_time" size=12 />
+        </td>
+    </tr>
+    <tr>
+        <td width="150">
+            <label class="required">
+                <span>*</span>Next Date:
+            </label>
+        </td>
+        <td>
+            <input type="text" class="inspectionDate" id="ins_next_date" size=12 />&nbsp;&nbsp;&nbsp;
+            <label>
+                Reinspection Date:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </label>
+            <input type="text" class="inspectionDate" id="ins_reinspection_date" size=12 />
+        </td>
+    </tr>
+    <tr  class="color-dark">
+        <td width="150">
+            <label class="required">
+                <span>*</span>Type:
+            </label>
+        </td>
+        <td>
+            <select id="ins_type_id" >
+                <?php
+                    foreach ($this->layout()->inspectionTypeList as $type_ind => $type_name) {
+                        echo '<option value="' . $type_ind . '">' . $type_name . '</option>';
+                    }
+                ?>
+            </select>
+            &nbsp;&nbsp;&nbsp;
+            <label class="required">
+                <span>*</span>Inspector:
+            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="ins_inspector_id" class="inspectorSelect">
+                <?php
+                    foreach ($this->layout()->inspectorList as $inspector_ind => $inspector_name) {
+                        echo '<option value="' . $inspector_ind . '">' . $inspector_name . '</option>';
+                    }
+                ?>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+            <?php if ($this->layout()->identity->permissions->inspector_create_permission === true) : ?>
+                <a onclick="createInspectorClickHeandler();">New Inspector</a>
+            <?php endif; ?>
+            &nbsp;&nbsp;&nbsp;
+
+            <label class="required">
+                <span>*</span>Result:
+            </label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <select id="ins_result_id" >
+                <?php
+                    foreach ($this->layout()->inspectionResultList as $result_ind => $result_name) {
+                      echo '<option value="' . $result_ind . '">' . $result_name . '</option>';
+                    }
+                ?>
+            </select>&nbsp;&nbsp;&nbsp;&nbsp;
+        </td>
+    </tr>
+    <tr>
+        <td width="150">
+            <label class="required">
+                <span>*</span>DOT regulated:
+            </label>
+        </td>
+        <td>
+            <?php
+                $yesChecked = '';
+                $noChecked = '';
+                if (isset($value['ins_dot_regulated']) && $value['ins_dot_regulated'] == 'No') {
+                    $noChecked = 'checked="checked"';
+                } else if (isset($value['ins_dot_regulated']) && $value['ins_dot_regulated'] == 'Yes') {
+                    $yesChecked = 'checked="checked"';
+                } else {
+                    $noChecked = 'checked="checked"';
+                }
+            ?>
+            <input type="radio" class="ins_dot_regulated"
+                   name="ins_dot_regulated" id="ins_dot_regulated_yes"
+                   value="Yes" <?= $yesChecked; ?>>&nbsp;Yes
+            <input type="radio" class="ins_dot_regulated"
+                   name="ins_dot_regulated" id="ins_dot_regulated_no"
+                   value="No" <?= $noChecked; ?>>&nbsp;No
+            &nbsp;&nbsp;&nbsp;
+            <label>
+                Diesel information:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </label>
+            <input type="text" id="ins_diesel_inspection_information" size=12 />
+
+        </td>
+    </tr>
+    <tr height=40 valign=middle>
+        <td class="" align=center>&nbsp;</td>
+        <td class="" align=left>
+            <span class="blue-button float-left">
+                <a id="addInspection"  class="saveBlockButtonClass" onclick="addInspectionClick();">
+                    Add New Inspection
+                </a>
+            </span>
+        </td>
+    </tr>
+</table>
+
+<?= $this->partial('partials/index/_add-inspector.phtml', array(
+                        'spList' => $this->spList
+)); ?>

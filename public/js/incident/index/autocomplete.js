@@ -7,8 +7,8 @@ function turnOnCityPersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -31,8 +31,8 @@ function turnOnZipPersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -55,8 +55,8 @@ function turnOnFirstNamePersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -79,8 +79,8 @@ function turnOnLastNamePersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -103,8 +103,8 @@ function turnOnAddress1PersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -127,8 +127,8 @@ function turnOnAddress2PersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label
@@ -151,8 +151,8 @@ function turnOnTelephonePersonAutocomplete() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        if (data.result != 0) {
-                            response(data.map(function (value) {
+                        if (data.result == 1) {
+                            response($.map(data.items, function (value) {
                                 return {
                                     'label': value.label,
                                     'value': value.label

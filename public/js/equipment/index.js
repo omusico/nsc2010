@@ -135,9 +135,9 @@ function storePrimaryViwValues() {
     Viw.e_Title_Status = $("#e_Title_Status").val();
     Viw.e_Fee = $("#e_Fee").val();
     Viw.e_RFID_No = $("#e_RFID_No").val();
-    Viw.e_valuation_value = $("#e_valuation_value");
-    Viw.e_valuation_date = $("#e_valuation_date");
-    Viw.e_number_passenger_seats = $("#e_number_passenger_seats");
+    Viw.e_valuation_value = $("#e_valuation_value").val();
+    Viw.e_valuation_date = $("#e_valuation_date").val();
+    Viw.e_number_passenger_seats = $("#e_number_passenger_seats").val();
 }
 
 function storePrimaryAssignmentValues() {

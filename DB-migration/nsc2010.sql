@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: localhost
--- Время создания: Ноя 16 2010 г., 16:09
+-- Время создания: Янв 25 2011 г., 22:11
 -- Версия сервера: 5.1.49
 -- Версия PHP: 5.3.2
 
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
 DROP TABLE IF EXISTS `company`;
 CREATE TABLE IF NOT EXISTS `company` (
   `c_id` int(11) NOT NULL AUTO_INCREMENT,
-  `c_Parent_Company_Account_Number` int(11)  NOT NULL,
+  `c_Parent_Company_Account_Number` int(11) DEFAULT NULL,
   `c_Number` varchar(12) COLLATE latin1_general_ci NOT NULL,
   `c_EIN` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `c_SSN` varchar(11) COLLATE latin1_general_ci DEFAULT NULL,
@@ -108,8 +108,7 @@ CREATE TABLE IF NOT EXISTS `company` (
   `c_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`c_id`),
   KEY `FK_Company_2_Parent_Company__pc_id` (`c_Parent_Company_Account_Number`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
 
 -- --------------------------------------------------------
 
@@ -134,9 +133,12 @@ CREATE TABLE IF NOT EXISTS `contacts_table` (
   `ct_Start_Date` date NOT NULL,
   `ct_Created_Date_Time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `ct_URL` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
+  `ct_logo` varchar(20) COLLATE latin1_general_ci DEFAULT NULL,
   `ct_Memo` text COLLATE latin1_general_ci,
   PRIMARY KEY (`ct_ID`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
+
+-- --------------------------------------------------------
 
 --
 -- Структура таблицы `country`
@@ -148,11 +150,8 @@ CREATE TABLE IF NOT EXISTS `country` (
   `country_name` varchar(100) NOT NULL,
   PRIMARY KEY (`country_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
--- --------------------------------------------------------
-
 
 -- --------------------------------------------------------
-
 --
 -- Структура таблицы `custom_document__form_name`
 --
@@ -160,10 +159,15 @@ CREATE TABLE IF NOT EXISTS `country` (
 DROP TABLE IF EXISTS `custom_document__form_name`;
 CREATE TABLE IF NOT EXISTS `custom_document__form_name` (
   `cdfn_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `cdfn_pdf` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `cdfn_category_id` int(11) NOT NULL,
-  `cdfn_name` varchar(255) NOT NULL,
+  `cdfn_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`cdfn_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=15 ;
+
+--
+-- Структура таблицы `custom_document__form_category`
+--
 
 DROP TABLE IF EXISTS `custom_document__form_category`;
 CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
@@ -172,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `custom_document__form_category` (
   PRIMARY KEY (`cdfc_ID`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
+-- --------------------------------------------------------
 
 --
 -- Структура таблицы `custom_document`
@@ -199,9 +204,7 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
   KEY `fk_custom_document_company1` (`cd_Company_ID`),
   KEY `fk_custom_document_driver1` (`cd_Driver_ID`),
   KEY `fk_custom_document_homebase1` (`cd_Homebase_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
-
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=14 ;
 
 -- --------------------------------------------------------
 
@@ -212,12 +215,15 @@ CREATE TABLE IF NOT EXISTS `custom_document` (
 DROP TABLE IF EXISTS `custom_document__fax_status`;
 CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
   `cdfs_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cdfs_status` varchar(50) NOT NULL,
+  `cdfs_status` varchar(50) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`cdfs_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
 
-
 -- --------------------------------------------------------
+
+
+
+
 
 --
 -- Структура таблицы `custom_document__form_status`
@@ -226,10 +232,9 @@ CREATE TABLE IF NOT EXISTS `custom_document__fax_status` (
 DROP TABLE IF EXISTS `custom_document__form_status`;
 CREATE TABLE IF NOT EXISTS `custom_document__form_status` (
   `cdfms_id` int(11) NOT NULL AUTO_INCREMENT,
-  `cdfms_status` varchar(50) NOT NULL,
+  `cdfms_status` varchar(50) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`cdfms_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=12 ;
-
 
 -- --------------------------------------------------------
 
@@ -249,7 +254,6 @@ CREATE TABLE IF NOT EXISTS `depot` (
   PRIMARY KEY (`dp_id`),
   KEY `FK_Depot_2_HomeBase__h_id` (`dp_HomeBase_Account_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
-
 
 -- --------------------------------------------------------
 
@@ -294,9 +298,9 @@ CREATE TABLE IF NOT EXISTS `driver` (
   `d_TWIC_expiration` date DEFAULT NULL,
   `d_R_A` varchar(100) COLLATE latin1_general_ci DEFAULT NULL,
   `d_R_A_expiration` date DEFAULT NULL,
-  `d_last_update_date` DATETIME DEFAULT NULL,
+  `d_last_update_date` datetime DEFAULT NULL,
   PRIMARY KEY (`d_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=16 ;
 
 -- --------------------------------------------------------
 
@@ -318,10 +322,10 @@ CREATE TABLE IF NOT EXISTS `driver_address_history` (
   `dah_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `dah_Country_Code` varchar(10) COLLATE latin1_general_ci DEFAULT NULL,
   `dah_Phone` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
-  `dah_row_created`  timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dah_row_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`dah_ID`),
   KEY `fk_driver_address_history_driver1` (`dah_Driver_ID`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=14 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=2 ;
 
 -- --------------------------------------------------------
 
@@ -366,11 +370,6 @@ CREATE TABLE IF NOT EXISTS `driver_service_hours` (
   KEY `fk_driver_service_hours_driver1` (`dsh_Driver_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `driver_service_hours`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -380,7 +379,7 @@ CREATE TABLE IF NOT EXISTS `driver_service_hours` (
 DROP TABLE IF EXISTS `driver__employment_type`;
 CREATE TABLE IF NOT EXISTS `driver__employment_type` (
   `det_id` int(11) NOT NULL AUTO_INCREMENT,
-  `det_type` varchar(100) NOT NULL,
+  `det_type` varchar(100) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`det_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
 
@@ -412,10 +411,9 @@ CREATE TABLE IF NOT EXISTS `driver__equipment_operated` (
 DROP TABLE IF EXISTS `driver__eye_color`;
 CREATE TABLE IF NOT EXISTS `driver__eye_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dhc_type` varchar(100) NOT NULL,
+  `dhc_type` varchar(100) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`dhc_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=6 ;
-
 
 -- --------------------------------------------------------
 
@@ -426,10 +424,9 @@ CREATE TABLE IF NOT EXISTS `driver__eye_color` (
 DROP TABLE IF EXISTS `driver__gender`;
 CREATE TABLE IF NOT EXISTS `driver__gender` (
   `dg_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dg_type` varchar(100) NOT NULL,
+  `dg_type` varchar(100) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`dg_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=3 ;
-
 
 -- --------------------------------------------------------
 
@@ -440,9 +437,12 @@ CREATE TABLE IF NOT EXISTS `driver__gender` (
 DROP TABLE IF EXISTS `driver__hair_color`;
 CREATE TABLE IF NOT EXISTS `driver__hair_color` (
   `dhc_id` int(11) NOT NULL AUTO_INCREMENT,
-  `dhc_type` varchar(100) NOT NULL,
+  `dhc_type` varchar(100) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`dhc_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=7 ;
+
+
+
 
 
 -- --------------------------------------------------------
@@ -459,6 +459,11 @@ CREATE TABLE IF NOT EXISTS `driver__status` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
+
+--
+-- Структура таблицы `email_notification`
+--
+
 DROP TABLE IF EXISTS `email_notification`;
 CREATE TABLE IF NOT EXISTS `email_notification` (
   `en_id` int(11) NOT NULL AUTO_INCREMENT,
@@ -469,6 +474,9 @@ CREATE TABLE IF NOT EXISTS `email_notification` (
   `en_status_id` int(11) NOT NULL,
   PRIMARY KEY (`en_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
 --
 -- Структура таблицы `employer`
 --
@@ -485,12 +493,11 @@ CREATE TABLE IF NOT EXISTS `employer` (
   `emp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `emp_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `emp_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_DOT_Safety_Sensitive_Function` set('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `emp_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `emp_FMCSR` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
   `emp_approved` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
-  PRIMARY KEY (`emp_ID`),
-  UNIQUE KEY `emp_employer_unique_row` (`emp_Employer_Name`,`emp_Address1`,`emp_Address2`,`emp_City`,`emp_State_ID`,`emp_Country_ID`,`emp_Postal_Code`,`emp_Phone`,`emp_Fax`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=43 ;
+  PRIMARY KEY (`emp_ID`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=40 ;
 
 -- --------------------------------------------------------
 
@@ -539,11 +546,6 @@ CREATE TABLE IF NOT EXISTS `equipment` (
   PRIMARY KEY (`e_id`),
   UNIQUE KEY `e_Number` (`e_Number`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
---
--- Дамп данных таблицы `equipment`
---
-
 
 -- --------------------------------------------------------
 
@@ -849,31 +851,39 @@ CREATE TABLE IF NOT EXISTS `incident_investigator` (
 
 DROP TABLE IF EXISTS `inspection`;
 CREATE TABLE IF NOT EXISTS `inspection` (
-  `ins_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `ins_Equipment_ID` int(11) NOT NULL,
-  `ins_Date` date NOT NULL,
-  `ins_Start_Time` time NOT NULL,
-  `ins_Entry_Date` date NOT NULL,
-  `ins_Inspector_First_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `ins_Inspector_Last_Name` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `ins_Inspector_ID_Number` int(11) DEFAULT NULL,
-  `ins_Inspector_Certificate` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `ins_Type_ID` int(11) NOT NULL,
-  `ins_Result` tinyint(4) DEFAULT NULL,
-  `ins_Next_Date` date NOT NULL,
-  `ins_Reinspection_Date` date NOT NULL,
-  `ins_Company` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `ins_Diesel_Inspection_Information` text COLLATE latin1_general_ci,
-  `ins_DOT_Regulated` set('Yes','No') COLLATE latin1_general_ci NOT NULL,
-  PRIMARY KEY (`ins_ID`),
-  KEY `fk_inspection_equipment1` (`ins_Equipment_ID`),
-  KEY `fk_inspection_inspection_types1` (`ins_Type_ID`)
+  `ins_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ins_equipment_id` int(11) NOT NULL,
+  `ins_start_date` date NOT NULL,
+  `ins_start_time` time NOT NULL,
+  `ins_entry_date` date NOT NULL,
+  `ins_inspector_id` int(11) NOT NULL,
+  `ins_type_id` tinyint(4) NOT NULL,
+  `ins_result_id` tinyint(4) NOT NULL,
+  `ins_next_date` date NOT NULL,
+  `ins_reinspection_date` date NOT NULL,
+  `ins_diesel_inspection_information` text COLLATE latin1_general_ci,
+  `ins_dot_regulated` enum('Yes','No') COLLATE latin1_general_ci NOT NULL,
+  `ins_last_modified_datetime` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`ins_id`),
+  KEY `ins_equipment_id` (`ins_equipment_id`),
+  KEY `ins_type_id` (`ins_type_id`),
+  KEY `ins_result_id` (`ins_result_id`),
+  KEY `ins_inspector_id` (`ins_inspector_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
+-- --------------------------------------------------------
+
 --
--- Дамп данных таблицы `inspection`
+-- Структура таблицы `inspection_result`
 --
 
+DROP TABLE IF EXISTS `inspection_result`;
+CREATE TABLE IF NOT EXISTS `inspection_result` (
+  `ir_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `ir_result` varchar(255) NOT NULL,
+  PRIMARY KEY (`ir_id`),
+  UNIQUE KEY `ir_result` (`ir_result`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 -- --------------------------------------------------------
 
@@ -883,25 +893,29 @@ CREATE TABLE IF NOT EXISTS `inspection` (
 
 DROP TABLE IF EXISTS `inspection_types`;
 CREATE TABLE IF NOT EXISTS `inspection_types` (
-  `it_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `it_Inspection_ID` int(11) NOT NULL,
-  `it_Inspection_Type_Type` set('Local','Federal','State','Company') COLLATE latin1_general_ci NOT NULL,
-  `it_Inspection_Type_Parameters` text COLLATE latin1_general_ci,
-  PRIMARY KEY (`it_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=1 ;
+  `it_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `it_type` varchar(255) COLLATE latin1_general_ci NOT NULL,
+  `it_parameters` text COLLATE latin1_general_ci,
+  PRIMARY KEY (`it_id`),
+  UNIQUE KEY `it_type` (`it_type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=5 ;
 
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `inspection__result`
+-- Структура таблицы `inspector`
 --
 
-DROP TABLE IF EXISTS `inspection__result`;
-CREATE TABLE IF NOT EXISTS `inspection__result` (
-  `ir_id` int(11) NOT NULL AUTO_INCREMENT,
-  `ir_type` varchar(50) NOT NULL,
-  PRIMARY KEY (`ir_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=4 ;
+DROP TABLE IF EXISTS `inspector`;
+CREATE TABLE IF NOT EXISTS `inspector` (
+  `in_id` int(11) NOT NULL AUTO_INCREMENT,
+  `in_first_name` varchar(50) NOT NULL,
+  `in_last_name` varchar(50) NOT NULL,
+  `in_certificate` varchar(255) DEFAULT NULL,
+  `in_service_provider_id` int(11) NOT NULL,
+  PRIMARY KEY (`in_id`),
+  KEY `in_service_provider_id` (`in_service_provider_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -1018,27 +1032,20 @@ CREATE TABLE IF NOT EXISTS `person` (
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `employer`
+-- Структура таблицы `report__annual_review_of_motor_vehicle`
 --
 
-DROP TABLE IF EXISTS `employer`;
-CREATE TABLE IF NOT EXISTS `employer` (
-  `emp_ID` int(11) NOT NULL AUTO_INCREMENT,
-  `emp_Employer_Name` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_Address1` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_Address2` varchar(255) COLLATE latin1_general_ci DEFAULT NULL,
-  `emp_City` varchar(255) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_State_ID` tinyint(2) NOT NULL,
-  `emp_Country_ID` tinyint(2) NOT NULL,
-  `emp_Postal_Code` varchar(10) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_Phone` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_Fax` varchar(14) COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_DOT_Safety_Sensitive_Function` set('Yes','No') COLLATE latin1_general_ci NOT NULL DEFAULT '',
-  `emp_FMCSR` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
-  `emp_approved` enum('YES','NO') COLLATE latin1_general_ci NOT NULL DEFAULT 'NO',
-  PRIMARY KEY (`emp_ID`)
+DROP TABLE IF EXISTS `report__annual_review_of_motor_vehicle`;
+CREATE TABLE `report__annual_review_of_motor_vehicle` (
+`raromv_id` INT NOT NULL AUTO_INCREMENT,
+`raromv_driver_id` INT NOT NULL ,
+`raromv_review_date` DATE NOT NULL ,
+`raromv_name_of_person_reviewing_user_id` INT NOT NULL ,
+`raromv_confirm_review` INT NOT NULL ,
+`raromv_driver_info` INT NOT NULL ,
+`raromv_remarks` TEXT NULL,
+  PRIMARY KEY (`raromv_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
-
 
 -- --------------------------------------------------------
 
@@ -1070,11 +1077,6 @@ CREATE TABLE IF NOT EXISTS `score` (
   PRIMARY KEY (`s_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
---
--- Дамп данных таблицы `score`
---
-
-
 -- --------------------------------------------------------
 
 --
@@ -1086,7 +1088,7 @@ CREATE TABLE IF NOT EXISTS `service_provider` (
   `sp_id` int(11) NOT NULL AUTO_INCREMENT,
   `sp_name` varchar(255) COLLATE latin1_general_ci NOT NULL,
   `sp_contact` varchar(255) COLLATE latin1_general_ci NOT NULL,
-  `sp_type` enum('Insurance','Tow Truck','Repair') COLLATE latin1_general_ci NOT NULL DEFAULT 'Repair',
+  `sp_type_id` int(11) NOT NULL,
   `sp_telephone_number` varchar(14) COLLATE latin1_general_ci NOT NULL,
   `sp_fax` varchar(14) COLLATE latin1_general_ci DEFAULT NULL,
   `sp_address1` varchar(255) COLLATE latin1_general_ci NOT NULL,
@@ -1100,8 +1102,9 @@ CREATE TABLE IF NOT EXISTS `service_provider` (
   `sp_entry_date` date NOT NULL,
   `sp_last_modified_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`sp_id`),
-  UNIQUE KEY `sp_name` (`sp_name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=3 ;
+  UNIQUE KEY `sp_name` (`sp_name`),
+  KEY `sp_type_id` (`sp_type_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci ROW_FORMAT=DYNAMIC AUTO_INCREMENT=4 ;
 
 -- --------------------------------------------------------
 
@@ -1154,6 +1157,20 @@ CREATE TABLE IF NOT EXISTS `service_providers_insurances` (
   KEY `spi_insurance_company_id` (`spi_insurance_company_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `service_provider_types`
+--
+
+CREATE TABLE IF NOT EXISTS `service_provider_types` (
+  `spt_id` int(11) NOT NULL AUTO_INCREMENT,
+  `spt_type` varchar(50) NOT NULL,
+  PRIMARY KEY (`spt_id`),
+  UNIQUE KEY `spt_type` (`spt_type`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=15 ;
+
 -- --------------------------------------------------------
 
 --
@@ -1163,9 +1180,9 @@ CREATE TABLE IF NOT EXISTS `service_providers_insurances` (
 DROP TABLE IF EXISTS `state`;
 CREATE TABLE IF NOT EXISTS `state` (
   `s_id` int(11) NOT NULL AUTO_INCREMENT,
-  `s_name` varchar(2) NOT NULL,
+  `s_name` varchar(2) COLLATE latin1_general_ci NOT NULL,
   PRIMARY KEY (`s_id`)
-) ENGINE=InnoDB  ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=52 ;
 
 -- --------------------------------------------------------
 --

@@ -127,6 +127,22 @@ class Permission_Model_Permission
                         'save-witness',
                     )
                 ),
+                'inspection' => array('resource' => 'inspection'),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment',
+                                                                'delete-inspection'
+                                                            )
+                    ),
+                'inspector' => array('resource' => 'inspector'),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
+                    ),
                 'violation' => array('resource' => 'violation'),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                     'actions' => array(
@@ -379,6 +395,20 @@ class Permission_Model_Permission
                                                                     'save-witness',
                                                                 )
                     ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment',
+                                                                'delete-inspection'
+                                                            )
+                    ),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
+                    ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
                                                                     'index'
@@ -613,6 +643,19 @@ class Permission_Model_Permission
                                                                     'save-witness',
                                                                 )
                     ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment'
+                                                            )
+                    ),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
+                    ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
                                                                     'index'
@@ -795,6 +838,11 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'get-witnesses'
                                                                 )
+                    ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections'
+                                                            )
                     ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
@@ -1012,6 +1060,20 @@ class Permission_Model_Permission
                                                                     'get-witnesses',
                                                                     'save-witness',
                                                                 )
+                    ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment',
+                                                                'delete-inspection'
+                                                            )
+                    ),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
                     ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
@@ -1247,6 +1309,20 @@ class Permission_Model_Permission
                                                                     'save-witness',
                                                                 )
                     ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment',
+                                                                'delete-inspection'
+                                                            )
+                    ),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
+                    ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
                                                                     'index'
@@ -1476,6 +1552,19 @@ class Permission_Model_Permission
                                                                     'save-witness',
                                                                 )
                     ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections',
+                                                                'create',
+                                                                'save-inspection-equipment'
+                                                            )
+                    ),
+                'inspector/index' => array('resource' => 'inspector:index', 'module' => 'inspector',
+                                                            'actions' => array(
+                                                                'create',
+                                                                'upload-certificate'
+                                                            )
+                    ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
                                                                     'index'
@@ -1658,6 +1747,11 @@ class Permission_Model_Permission
                                                                     'get-witnesses'
                                                                 )
                     ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections'
+                                                            )
+                    ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(
                                                                     'index'
@@ -1819,6 +1913,11 @@ class Permission_Model_Permission
                                                             'actions' => array(
                                                                     'get-witnesses'
                                                                 )
+                    ),
+                'inspection/index' => array('resource' => 'inspection:index', 'module' => 'inspection',
+                                                            'actions' => array(
+                                                                'get-equipment-inspections'
+                                                            )
                     ),
                 'violation/list' => array('resource' => 'violation:list', 'module' => 'violation',
                                                             'actions' => array(

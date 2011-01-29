@@ -98,7 +98,7 @@ class EquipmentAssignment_Model_EquipmentAssignment extends NSC_Model_Validate
             LEFT JOIN depot ON ea_depot_id = dp_id
             LEFT JOIN service_providers_equipments ON e_id = spe_equipment_id
             LEFT JOIN service_provider ON spe_service_provider_id = sp_id
-            LEFT JOIN inspection ON e_id = ins_Equipment_ID
+            LEFT JOIN inspection ON e_id = ins_equipment_id
             LEFT JOIN equipment_maintenance ON e_id = em_Equipment_ID
             LEFT JOIN incident ON e_id = i_Equipment_ID
             where ea_equipment_id = {$this->getDefaultAdapter()->quote($equipmentId)}

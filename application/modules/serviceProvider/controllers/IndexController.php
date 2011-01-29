@@ -23,6 +23,14 @@ class ServiceProvider_IndexController extends Zend_Controller_Action
         $this->view->breadcrumbs .= "&nbsp;&gt;&nbsp;Service Provider Search";
         $this->view->pageTitle = 'New Service Provider';
 
+        $sptModel = new ServiceProvider_Model_ServiceProviderType();
+        $list = $sptModel->getList();
+        $selectArray = array('' => ' - ');
+        foreach ($list as $item) {
+            $selectArray[$item['spt_id']] = $item['spt_type'];
+        }
+        $this->view->sptList = $selectArray;
+
         $this->view->headScript()->appendFile('/js/sp/index/create.js', 'text/javascript');
     }
 
@@ -81,6 +89,14 @@ class ServiceProvider_IndexController extends Zend_Controller_Action
         $this->view->breadcrumbs .= '&nbsp;&gt;&nbsp;Service Provider Profile';
 
         $this->view->pageTitle = 'SERVICE PROVIDER INFORMATION WORKSHEET';
+
+        $sptModel = new ServiceProvider_Model_ServiceProviderType();
+        $list = $sptModel->getList();
+        $selectArray = array('' => ' - ');
+        foreach ($list as $item) {
+            $selectArray[$item['spt_id']] = $item['spt_type'];
+        }
+        $this->view->sptList = $selectArray;
         
         $this->view->headScript()->appendFile('/js/sp/index/index.js');
 

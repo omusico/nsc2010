@@ -28,7 +28,14 @@
               <a href="/documents/dqf/upload-form/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/"><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-8.gif";}else{echo "/images/ico-5.gif";}?>" alt=""/></a>
           </td>
           <td>
-              <a href="/documents/dqf/view-scans/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/"><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></a>
+              <?php if(!isset($documentsFormList[$i]['cd_Date_Completed']) && $documentsFormList[$i]['cdfn_pdf']!=""){ 
+                        if($documentsFormList[$i]['cdfn_pdf']!=""){ ?>
+                            <a <?php if($documentsFormList[$i]['cdfn_pdf']!=""){echo " target='_blank' ";}?> href="/documents/pdf/<?php echo $documentsFormList[$i]['cdfn_pdf'];?>" ><img src="/images/ico-3.gif" alt=""/></a>
+                    <?php }else{ ?>
+                            <img src="/images/ico-3.gif" alt=""/></a>
+              <?php } }else{ ?>
+                <a href="/documents/dqf/view-scans/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/" ><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></a>
+              <?php } ?>
           </td>
           <td>
               <?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){?>

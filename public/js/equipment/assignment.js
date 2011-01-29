@@ -49,7 +49,7 @@ $(function() {
                     dataType: 'json',
                     data: request,
                     success: function (data) {
-                        response(data.map(function (value) {
+                        response($.map(data, function (value) {
                             return {
                                 'label': value.label,
                                 'value': value.label,

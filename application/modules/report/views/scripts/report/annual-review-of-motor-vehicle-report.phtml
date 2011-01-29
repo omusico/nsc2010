@@ -1,0 +1,130 @@
+
+<div class="bottom-nav">
+    <ul class="blue-nav">
+        <li><span><a onclick="exit('/driver/driver/dqf/driver_id/<?php echo $this->driverInfo['d_ID'];?>')" >Cancel</a></li>
+    </ul>
+    <ul class="blue-nav">
+        <li><span><a href="/driver/Driver/Driver-Complete/id/<?php echo $this->driverInfo['d_ID'];?>" >Save</a></span></li>
+    </ul>
+</div>
+
+  <div class="breadcrumbs-left">
+  <div class="breadcrumbs-right">
+  <div class="breadcrumbs-middle">
+  <span>
+      <?php
+          echo $this->breadcrumbs;
+      ?>
+  </span>
+  </div>
+  </div>
+  </div>
+          <?php
+            $date = new Zend_Date();
+            print_r($this->driverInfo); ?>
+  <div id="main" class="driver-information">
+      <div class="post-top">
+      <div class="post-bottom">
+      <div class="post-middle">
+        <table class="inform">
+		<tbody>
+        <tr >
+	    	<th colspan="2">
+                <input type="hidden" value="<?php echo $this->driverInfo['d_ID']; ?>" name="DriverID">
+                <input type="hidden" value="46851" name="DIWID">
+                <h2>INFORMATION</h2>
+            </th>
+		</tr>
+        <tr class="color-dark">
+	    	<td>Driver Name</td>
+			<td>
+                <span>
+            <?php echo $this->driverInfo['d_Last_Name']; ?>,&nbsp;<?php echo $this->driverInfo['d_First_Name']; ?>&nbsp;
+                </span>
+            </td>
+		</tr>
+        <tr>
+	    	<td>Address</td>
+			<td>
+                <span>
+                <?php echo $this->driverInfo['dah_Address1']; ?>,&nbsp;&nbsp;<?php echo $this->driverInfo['dah_City']; ?>,&nbsp;&nbsp;<?php echo $this->driverInfo['s_name']; ?>,&nbsp;&nbsp;<?php echo $this->driverInfo['dah_Postal_Code']; ?>&nbsp;
+                </span>
+            </td>
+		</tr>
+        <tr class="color-dark">
+	    	<td>SSN</td>
+			<td><span><?php
+            echo  $this->driverInfo['d_Driver_SSN'];
+        ?></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				Date Of Hire: <span>
+                    <?php
+                        if(isset($this->driverInfo['d_Date_Of_Hire'])){
+                            $date->set($this->driverInfo['d_Date_Of_Hire'],"yyyy-MM-dd");
+                            echo  $date->toString("MM/dd/yyyy");
+                        }
+                  ?>
+				</span>
+			</td>
+		</tr>
+
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr class="color-dark">
+	    	<td >Review Date</td>
+			<td ><input type="text" maxlength="10" size="10" class="datepicker" value="1/25/2011" name="ReviewDate"></td>
+		</tr>
+        <tr>
+	    	<td >Name of person reviewing</td>
+			<td ><input type="text" maxlength="50" value="Hal Smith" size="30" name="Name"></td>
+		</tr>
+        <tr class="color-dark" >
+	    	<td >Confirm Review</td>
+	    	<td>
+				<input type="checkbox" name="ConfirmReview">
+				<span color="#ff0000"><b>&nbsp;&nbsp;&nbsp; Yes, I Have Reviewed The Motor Vehicle Report</b></span><br>
+	    	</td>
+		</tr>
+
+		<tr><td colspan="2">&nbsp;</td></tr>
+		<tr  class="color-dark">
+	    	<td >Select one</td>
+	    	<td>
+				<input type="radio" value="1" name="Qualify">&nbsp;&nbsp;&nbsp;
+	    	   	Driver MEETS MINIMUM REQUIREMENTS for safe driving<br/>
+	    		<input type="radio" value="2" name="Qualify">&nbsp;&nbsp;&nbsp;
+		    	Driver is DISQUALIFIED to drive a motor vehicle pursuant to Section 391.15<br>
+	    	</td>
+    	</tr>
+        <tr >
+	    	<td >Remarks</td>
+			<td ><textarea name="Remarks" cols="40" rows="3"></textarea></td>
+		</tr>
+        <tr  class="color-dark">
+	    	<td></td>
+			<td><input type="button" value="Save" /></td>
+		</tr>
+
+    </tbody>
+</table>
+          </div>
+          </div>
+          </div>
+
+      <div class="blue-nav">
+    <ul>
+        <li><span><a href="/driver/driver/dqf/driver_id/<?php echo $this->driverInfo['d_ID']; ?>">Go to DQF</a></span></li>
+        <li><span><a onclick="exit('/driver/index/dqf?status=All')">Exit</a></span></li>
+    </ul>
+</div>
+  </div>
+<script type="text/javascript">
+    $(function() {
+        $(".datepicker").datepicker({
+            showOn: "button",
+			buttonImage: "/images/select-data.gif",
+			buttonImageOnly: true,
+   changeMonth: true,
+   changeYear: true,
+            yearRange: '1950:2020'
+  });
+    });
+        </script>

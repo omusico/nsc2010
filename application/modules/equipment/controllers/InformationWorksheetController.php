@@ -7,7 +7,7 @@
  */
 class Equipment_InformationWorksheetController extends Zend_Controller_Action
 {
-    const uploadPath = "upload/";
+    const uploadPath = "upload/equipment/";
 
     public function preDispatch()
     {
@@ -110,8 +110,10 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->headScript()->appendFile('/js/imgpreview.min.0.22.jquery.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/index.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/equipment/maintenance.js', 'text/javascript');
+        $this->view->headScript()->appendFile('/js/equipment/inspection.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/ajaxfileupload/ajaxfileupload.js', 'text/javascript');
         $this->view->headScript()->appendFile('/js/calculator/jquery.calculator.min.js', 'text/javascript');
+        
 
 
         // create service provider select.
@@ -296,6 +298,32 @@ class Equipment_InformationWorksheetController extends Zend_Controller_Action
         $this->view->EIN = $equipmentRow->e_Number;
         $this->view->UnitNumber = $equipmentRow->e_Unit_Number;
         $this->view->ID = $equipmentRow->e_id;
+        
+        $equipmentFieldsArray = $equipmentModel->_fieldsValidationArray;
+        $equipmentInformationFields = array();
+        if (!is_null($equipmentFieldsArray)) {
+            // TODO Make a refactoring
+            foreach ($equipmentFieldsArray as $key => $value) {
+                if (property_exists($equipmentRow, $key)) {
+                    if (isset($value['displayField']) && property_exists($equipmentRow, $value['displayField'])) {
+                        $equipmentInformationFields[$value['label']] = $equipmentRow->$value['displayField'];
+                    } else if (isset($value['type']) && 'date' == $value['type']) {
+                        if (empty($equipmentRow->$key) || $equipmentRow->$key == '0000-00-00') {
+                            $equipmentInformationFields[$value['label']] = '';
+                        } else {
+                            $zendDate = new Zend_Date($equipmentRow->$key, 'yyyy-MM-dd');
+                            $equipmentInformationFields[$value['label']] = $zendDate->toString('MM/dd/yyyy');
+                        }
+                    } else {
+                        $equipmentInformationFields[$value['label']] = $equipmentRow->$key;
+                    }
+                } else {
+                    $equipmentInformationFields[$value['label']] = '';
+                }
+            }
+        }
+        $this->view->equipmentInformationFields = $equipmentInformationFields;
+
 
 
         $warningFields = $equipmentModel->checkCompletedFields($id);

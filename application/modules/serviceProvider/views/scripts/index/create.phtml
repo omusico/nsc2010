@@ -39,9 +39,13 @@
                                     <label class="required"><span>*</span>Type:</label>
                                 </td>
                                 <td>
-                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Insurance">&nbsp;Insurance</span>
-                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Tow Truck">&nbsp;Tow Truck</span>
-                                    <span class="radio-button"><input type="radio" name="sp_type" class="sp_type_class" value="Repair"  checked="checked">&nbsp;Repair</span>
+                                    <select id="sp_type_id" class="spTypeSelect">
+                                        <?php
+                                            foreach ($this->sptList as $key => $value) {
+                                                echo '<option value="' . $key . '">' . $value . '</option>';
+                                            }
+                                        ?>
+                                    </select>
                                 </td>
                             </tr>
                             <tr>

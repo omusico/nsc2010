@@ -5,7 +5,7 @@ class ServiceProvider_ListController extends Zend_Controller_Action
         'sp_name' => array(
             'text' => 'Name'
         ),
-        'sp_type' => array(
+        'spt_type' => array(
             'text' => 'Type'
         ),
         'sp_city' => array(

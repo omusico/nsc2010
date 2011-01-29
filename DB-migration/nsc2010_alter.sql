@@ -7,11 +7,6 @@ START TRANSACTION;
 -- Ограничения внешнего ключа сохраненных таблиц
 --
 
---
--- Ограничения внешнего ключа таблицы `company`
---
-ALTER TABLE `company`
-  ADD CONSTRAINT `FK_Company_2_Parent_Company__pc_id` FOREIGN KEY (`c_Parent_Company_Account_Number`) REFERENCES `parent_company` (`pc_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `custom_document`
@@ -71,8 +66,22 @@ ALTER TABLE `incident_investigator`
 -- Ограничения внешнего ключа таблицы `inspection`
 --
 ALTER TABLE `inspection`
-  ADD CONSTRAINT `fk_inspection_equipment1` FOREIGN KEY (`ins_Equipment_ID`) REFERENCES `equipment` (`e_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_inspection_inspection_types1` FOREIGN KEY (`ins_Type_ID`) REFERENCES `inspection_types` (`it_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `inspection_ibfk_6` FOREIGN KEY (`ins_result_id`) REFERENCES `inspection_result` (`ir_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `inspection_ibfk_3` FOREIGN KEY (`ins_equipment_id`) REFERENCES `equipment` (`e_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `inspection_ibfk_4` FOREIGN KEY (`ins_inspector_id`) REFERENCES `inspector` (`in_id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `inspection_ibfk_5` FOREIGN KEY (`ins_type_id`) REFERENCES `inspection_types` (`it_id`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `inspector`
+--
+ALTER TABLE `inspector`
+  ADD CONSTRAINT `inspector_ibfk_1` FOREIGN KEY (`in_service_provider_id`) REFERENCES `service_provider` (`sp_id`) ON UPDATE CASCADE;
+
+--
+-- Ограничения внешнего ключа таблицы `service_provider`
+--
+ALTER TABLE `service_provider`
+  ADD CONSTRAINT `service_provider_ibfk_1` FOREIGN KEY (`sp_type_id`) REFERENCES `service_provider_types` (`spt_id`) ON UPDATE CASCADE;
 
 --
 -- Ограничения внешнего ключа таблицы `service_providers_companies`
@@ -102,7 +111,6 @@ ALTER TABLE `user`
   ADD CONSTRAINT `fk_user_company1` FOREIGN KEY (`u_Company_ID`) REFERENCES `company` (`c_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_depot1` FOREIGN KEY (`u_Depot_ID`) REFERENCES `depot` (`dp_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_homebase1` FOREIGN KEY (`u_Homebase_ID`) REFERENCES `homebase` (`h_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_user_parent_company1` FOREIGN KEY (`u_Parent_Company_ID`) REFERENCES `parent_company` (`pc_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_user_user_role1` FOREIGN KEY (`u_Role_ID`) REFERENCES `user_role` (`ur_ID`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 SET FOREIGN_KEY_CHECKS=1;
 

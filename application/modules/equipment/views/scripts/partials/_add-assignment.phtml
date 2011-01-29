@@ -146,20 +146,8 @@
                             </span>
                         </th>
                     </tr>
-                    <tr>
-                        <td>
-                            <label class='required'><span>*</span>Inspection</label>
-                        </td>
-                        <td>
-                            <span>
-                                <a href="/inspection/index/create/equipmentId/<?= (isset($this->equipmentAssignmentRow['e_id'])) ? $this->equipmentAssignmentRow['e_id'] : '' ; ?>">
-                                    Add inspection
-                                </a>
-                            </span>
-                        </td>
-                    </tr>
                     
-                    <tr class="color-dark">
+                    <tr>
                         <td>Incident</td>
                         <td>
                             <span>
@@ -169,7 +157,7 @@
                             </span>
                         </td>
                     </tr>
-                    <tr>
+                    <tr class="color-dark">
                         <td>
                             <label class='required'><span>*</span>
                                 Start Date
@@ -179,7 +167,7 @@
                             <input type="text" value="<?= (isset($this->equipmentAssignmentRow['ea_start_date'])) ? $this->equipmentAssignmentRow['ea_start_date'] : '' ; ?>" id="ea_start_date" name="ea_start_date" />
                         </td>
                     </tr>
-                    <tr class="color-dark">
+                    <tr>
                         <td>
                             <label class='required'><span>*</span>
                                 End Date

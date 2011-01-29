@@ -19,15 +19,21 @@
                 <div style="padding: 30px;">
                     <table class="inform">
                         <tbody>
-                            <tr>
-                                <td colspan="2"><h2>VIM:&nbsp;<span class="data"><?= $this->EIN; ?></span></h2></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><h2>Unit Number:&nbsp;<span class="data"><?= $this->UnitNumber; ?></span></h2></td>
-                            </tr>
                             <tr class="color-dark">
-                                <td width="400"><a href="/equipment/information-worksheet/index/EIN/<?= $this->EIN; ?>">Review Equipment Application</a><br>
+                                <td colspan="2">
+                                    <h3>
+                                        Your request has NOT YET been submitted. .. Please review and confirm the following information:
+                                    </h3>
+                                </td>
+                            </tr>
+                            <?php foreach ($this->equipmentInformationFields as $key => $value) : ?>
+                            <tr><td style="color: red;"><?= "$key : $value"; ?></td> </tr>
+                            <?php endforeach; ?>
+                            
+                            <tr class="color-dark">
+                                <td width="400">
                                     <div class="warning">
+                                        <h3>Error Checking: Errors Found</h3>
                                         <?php if (isset($this->warningArray) && is_array($this->warningArray)) {
                                             foreach ($this->warningArray as $field => $title) {
                                                 echo "Warning: Equipment $title record is missing.<br /> ";
@@ -40,15 +46,21 @@
                                         </div>
                                     <?php endif; ?>
                                 </td>
-<!--                                <td width="100" style="vertical-align: middle;"><span class="blue-button"><a href="#">Check</a></span></td>-->
                                 <td></td>
-                            </tr>
-                            <tr>
-<!--                                <td><a href="/equipment/information-worksheet/show-complete-form/id/<?= $this->ID; ?>">COMPLETE APPLICATION</a></td>-->
-                                <td><a href="/equipment/information-worksheet/index/EIN/<?= $this->EIN; ?>">Equipment Information Worksheet</a></td>
                             </tr>
                         </tbody>
                     </table>
+                     <div class="blue-nav" style="width:540px;">
+                        <ul>
+                            <li>
+                                <span>
+                                    <a href="/equipment/information-worksheet/index/EIN/<?= $this->EIN; ?>">
+                                        Cancel and Discard Application
+                                    </a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

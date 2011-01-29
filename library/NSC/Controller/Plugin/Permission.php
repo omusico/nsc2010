@@ -82,6 +82,23 @@ class NSC_Controller_Plugin_Permission extends  Zend_Controller_Plugin_Abstract
                     $permission->doesRoleHaveResource($this->identity->vau_role, 'serviceProvider/index',
                             'save');
 
+            /***** INSPECTION SECTION *****/
+
+            $this->identity->permissions->equipment_inspection_create_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'inspection/index', 'create');
+            $this->identity->permissions->equipment_inspection_delete_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'inspection/index', 'delete-inspection');
+            $this->identity->permissions->equipment_inspection_modify_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'inspection/index', 'save-inspection-equipment');
+
+            /***** INSPECTOR SECTION *****/
+            $this->identity->permissions->inspector_create_permission =
+                    $permission->doesRoleHaveResource($this->identity->vau_role,
+                            'inspector/index', 'create');
+
             
 
             /***** DRIVERS SECTION *****/

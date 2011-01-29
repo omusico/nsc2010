@@ -30,8 +30,6 @@ function turnOnCalculator() {
      });
 }
 
-
-
 function __deleteMaintenance(maintenanceId, equipmentId) {
     $.getJSON('/maintenance/maintenance/delete-maintenance',
         {
@@ -129,14 +127,13 @@ function refreshMaintenance(data) {
     $("#em_completed_date_" + maintenanceId).val(data.em_completed_date);
     $("#em_service_provider_id_" + maintenanceId).val(data.em_service_provider_id);
     $("#em_invoice_amount_" + maintenanceId).val(data.em_invoice_amount);
-    $("#em_dot_regulated_" + maintenanceId).val(data.em_dot_regulated);
+    $(".em_dot_regulated_" + maintenanceId).each(function(){
+        if ($(this).val() == data.em_dot_regulated) {
+            $(this).attr('checked', 'checked');
+        }
+    });
     $("#em_notes_" + maintenanceId).val(data.em_notes);
 }
-
-function isset(variable) {
-    return typeof(variable) != "undefined" && variable !== null;
-}
-
 
 function addMaintenance(equipmentId) {
     $.getJSON("/maintenance/maintenance/add-equipment-maintenance",

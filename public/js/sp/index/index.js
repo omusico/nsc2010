@@ -29,11 +29,7 @@ function toogleRepairDiv(type) {
 }
 
 function restoreType() {
-    $(".sp_type_class").each(function(){
-        if ($(this).val() == Sp.sp_type) {
-            $(this).attr('checked', 'checked');
-        }
-    });
+    $("#sp_type_id").val(Sp.sp_type_id);
 }
 
 function deleteLinksEquipmentMaintenances() {
@@ -56,7 +52,7 @@ function deleteLinksEquipmentMaintenances() {
 }
 
 function saveSpInformationClick() {
-   if (Sp.sp_type == 'Repair' && Sp.sp_type != $(".sp_type_class:checked").val() && 
+   if (Sp.spt_type == 'Repair' && Sp.sp_type_id != $("#sp_type_id").val() &&
             Sp.assignment_maintenances_count != 0) {
             var $dialogConfirmChangeType = $('<div></div>')
                 .html('Changing the type of Service Provider will result to deleting all links with associated equipment maintenance. Do you want to proceed?')
@@ -88,7 +84,7 @@ function saveSpInformation() {
    $.getJSON('/serviceProvider/index/save',
         {
             sp_id : $("#sp_id").val()  ,
-            sp_type : $(".sp_type_class:checked").val(),
+            sp_type_id : $("#sp_type_id").val(),
             sp_contact : $("#sp_contact").val(),
             sp_telephone_number : $("#sp_telephone_number").val(),
             sp_fax : $("#sp_fax").val(),
@@ -105,7 +101,7 @@ function saveSpInformation() {
                 storePrimarySpInformationValues(data.row);
                 fillInformation(data.row);
                 fillLastModifiedDate(data.row.sp_last_modified_datetime);
-                toogleRepairDiv(data.row.sp_type);
+                toogleRepairDiv(data.row.spt_type);
                 
                 $(".informationDiv").toggle("slow");
             } else {
@@ -149,7 +145,7 @@ function fillInformation(data) {
     $("#sp_status").html(data.sp_status);
     $("#sp_entry_date").html(data.sp_entry_date);
 
-    $("#sp_type_view").html(data.sp_type);
+    $("#sp_type_id_view").html(data.spt_type);
     $("#sp_contact_view").html(data.sp_contact);
     $("#sp_telephone_number_view").html(data.sp_telephone_number);
     $("#sp_fax_view").html(data.sp_fax);
@@ -168,11 +164,7 @@ function fillInformation(data) {
     }
 
 
-    $(".sp_type_class").each(function() {
-        if ($(this).val() == data.sp_type) {
-            $(this).attr('checked', 'checked');
-        }
-    });
+    $("#sp_type_id").val(data.sp_type_id);
     $("#sp_contact").val(data.sp_contact);
     $("#sp_telephone_number").val(data.sp_telephone_number);
     $("#sp_fax").val(data.sp_fax);

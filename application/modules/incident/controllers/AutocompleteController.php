@@ -23,19 +23,25 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_city';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
-                }
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
 
-                print json_encode($result);
+                    $result['result'] = 1;
+                }
             }
+
+            print json_encode($result);
         }
     }
 
@@ -47,15 +53,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_postal_code';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);
@@ -71,15 +82,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+            
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_first_name';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);
@@ -95,15 +111,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_last_name';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);
@@ -119,15 +140,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_address1';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);
@@ -143,15 +169,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_address2';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);
@@ -167,15 +198,20 @@ class Incident_AutocompleteController extends Zend_Controller_Action
         if ($this->_request->isXmlHttpRequest()) {
             $term = $this->_request->getParam('term');
 
+            $result = array();
+            $result['result'] = 0;
+
             if (!empty($term)) {
                 $personModel = new Person_Model_Person();
                 $field = 'per_telephone_number';
-                $cityList = $personModel->getFieldListByValuePart($field, trim($term));
-                $result = array();
-                foreach($cityList as $value){
-                    $arrayPart = array();
-                    $arrayPart['label'] = $value[$field];
-                    $result[] = $arrayPart;
+                $fieldList = $personModel->getFieldListByValuePart($field, trim($term));
+                if (is_array($fieldList) && count($fieldList)) {
+                    foreach($fieldList as $value){
+                        $arrayPart = array();
+                        $arrayPart['label'] = $value[$field];
+                        $result['items'][] = $arrayPart;
+                    }
+                    $result['result'] = 1;
                 }
 
                 print json_encode($result);

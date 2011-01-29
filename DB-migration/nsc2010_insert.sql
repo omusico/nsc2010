@@ -15,29 +15,27 @@ INSERT INTO `custom_document` (`cd_ID`, `cd_Driver_ID`, `cd_Company_ID`, `cd_Hom
 (9, 1, NULL, NULL, 2, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_18_9129.jpg', 'No', NULL, NULL, 4),
 (10, 1, 1, 2, 2, '', NULL, 1, 6, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_20_7546.jpg', 'No', NULL, 'Yes', 5),
 (11, 1, NULL, NULL, 2, NULL, NULL, 1, NULL, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_23_3395.jpg', 'No', NULL, NULL, 6),
-(12, 1, NULL, NULL, 2, '', NULL, 1, 9, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_26_5180.jpg', 'No', NULL, 'No', 7);
+(12, 1, NULL, NULL, 2, '', NULL, 1, 9, '2011-01-14', '2011-01-14', 'dID1_dfnID2_14_01_2011_19_27_26_5180.jpg', 'No', NULL, 'No', 7),
+(13, 1, NULL, NULL, 8, NULL, NULL, 1, NULL, '2011-01-22', '2011-01-22', 'dID1_dfnID8_22_01_2011_14_39_16_8096.JPG', 'No', NULL, NULL, 1);
 
---
--- Дамп данных таблицы `parent_company`
---
 
-INSERT INTO `parent_company` (`pc_id`, `pc_Account_Number`, `pc_EIN`, `pc_Name`, `pc_Telephone_Number`, `pc_Contact_Table_ID`, `pc_DOT_Regulated`) VALUES
-(1, 'pc1', '', 'pc1', '', 0, '');
+
 
 --
 -- Дамп данных таблицы `company`
 --
 
 INSERT INTO `company` (`c_id`, `c_Parent_Company_Account_Number`, `c_Number`, `c_EIN`, `c_SSN`, `c_DOT_Number`, `c_Carrier_Number`, `c_Name`, `c_Contact_Table_ID`, `c_Annual_Support`, `c_DOT_Regulated`) VALUES
-(1, 1, 'c1', NULL, NULL, NULL, NULL, 'c1', 0, '', '');
+(1, 1, 'c1', NULL, NULL, NULL, NULL, 'c1', 1, '', ''),
+(2, NULL, 'company2', NULL, NULL, NULL, NULL, 'CompanyName', 2, 'Yes', 'Yes');
 
 --
 -- Дамп данных таблицы `contacts_table`
 --
 
-INSERT INTO `contacts_table` (`ct_ID`, `ct_Contact`, `ct_Contact_Title`, `ct_Telephone_Number`, `ct_Contact_Fax`, `ct_Contact_Email`, `ct_Address1`, `ct_Address2`, `ct_City`, `ct_State`, `ct_Postal_Code`, `ct_Country_Code`, `ct_Start_Date`, `ct_Created_Date_Time`, `ct_URL`, `ct_Memo`) VALUES
-(1, 'qwe', 'qwe qwe', '12312312', '123123', 'qwe@qwe.qwe', 'qwqe qwsada sdqw d12', 'asd asd231d 2', 'Qweqw', 2, '12312', NULL, '2010-11-09', '2010-11-16 10:01:29', NULL, 'asd asjd lkasj hdasj flsadf jadsj fhdsa gfasdkfarskyeg ek fas fbdsdjf aksgf avskafshf kasjd'),
-(2, 'asd', 'asd', '123122221', '112311123', 'qqasa@assd.as', '12asd asd asds321 easd', NULL, 'Adsd-as', 22, '21221', NULL, '2010-11-03', '2010-11-16 13:41:39', NULL, NULL);
+INSERT INTO `contacts_table` (`ct_ID`, `ct_Contact`, `ct_Contact_Title`, `ct_Telephone_Number`, `ct_Contact_Fax`, `ct_Contact_Email`, `ct_Address1`, `ct_Address2`, `ct_City`, `ct_State`, `ct_Postal_Code`, `ct_Country_Code`, `ct_Start_Date`, `ct_Created_Date_Time`, `ct_URL`, `ct_logo`, `ct_Memo`) VALUES
+(1, 'qwe', 'qwe qwe', '12312312', '123123', 'qwe@qwe.qwe', 'qwqe qwsada sdqw d12', 'asd asd231d 2', 'Qweqw', 2, '12312', NULL, '2010-11-09', '2010-11-16 10:01:29', NULL, 'logo.png', 'asd asjd lkasj hdasj flsadf jadsj fhdsa gfasdkfarskyeg ek fas fbdsdjf aksgf avskafshf kasjd'),
+(2, 'asd', 'asd', '123122221', '112311123', 'qqasa@assd.as', '12asd asd asds321 easd', NULL, 'Adsd-as', 22, '21221', NULL, '2010-11-03', '2010-11-16 13:41:39', NULL, 'logo.jpg', NULL);
 
 --
 -- Дамп данных таблицы `country`
@@ -53,11 +51,8 @@ INSERT INTO `homebase` (`h_id`, `h_Company_Account_Number`, `h_Carrier_Number`, 
 (1, 1, 'hb1', 'hb1', 1, '', '', ''),
 (2, 1, NULL, 'Homebase1', 2, 'No', 'Yes', 'Yes'),
 (4, 1, NULL, 'Homebase2', 2, 'No', 'Yes', 'Yes'),
-(5, 1, NULL, 'Homebase3', 2, 'No', 'Yes', 'Yes');
+(5, 2, NULL, 'Homebase3', 2, 'No', 'Yes', 'Yes');
 
---
--- Дамп данных таблицы `custom_document`
---
 
 
 --
@@ -81,21 +76,21 @@ INSERT INTO `custom_document__form_category` (`cdfc_ID`, `cdfc_name`) VALUES
 -- Дамп данных таблицы `custom_document__form_name`
 --
 
-INSERT INTO `custom_document__form_name` (`cdfn_ID`, `cdfn_category_id`, `cdfn_name`) VALUES
-(1, 1, 'Application For Employment'),
-(2, 1, 'Certification Of Compliance With Driver License Requirements'),
-(3, 1, 'Employment Eligibility Verification'),
-(4, 1, 'Request For Information From Previous Employer'),
-(5, 1, 'Request/Consent For Alcohol And Controlled Substance Information'),
-(6, 1, 'Request for Motor Vehicle Report'),
-(7, 1, 'Record Of Road Test'),
-(8, 1, 'Driver Data Sheet'),
-(9, 2, 'Certification Of Violations'),
-(10, 2, 'Medical Card'),
-(11, 2, 'Commercial Driver License'),
-(12, 2, 'Social Security Card'),
-(13, 2, 'Motor Vehicle Report (MVR)'),
-(14, 2, 'Driver''s Physical Examination Form');
+INSERT INTO `custom_document__form_name` (`cdfn_ID`, `cdfn_pdf`, `cdfn_category_id`, `cdfn_name`) VALUES
+(1, 'APPLICATIONFOREMPLOYMENT.pdf', 1, 'Application For Employment'),
+(2, 'Certificate of Compliance.pdf', 1, 'Certification Of Compliance With Driver License Requirements'),
+(3, '2012 I-9 form.pdf', 1, 'Employment Eligibility Verification'),
+(4, 'REQUESTFORINFORMATIONcontr.pdf', 1, 'Request For Information From Previous Employer'),
+(5, 'PE D&A Background check.pdf', 1, 'Request/Consent For Alcohol And Controlled Substance Information'),
+(6, '', 1, 'Request for Motor Vehicle Report'),
+(7, 'Record of Road Test.pdf', 1, 'Record Of Road Test'),
+(8, 'Driver Data Sheet.pdf', 1, 'Driver Data Sheet'),
+(9, '', 2, 'Certification Of Violations'),
+(10, '', 2, 'Medical Card'),
+(11, '', 2, 'Commercial Driver License'),
+(12, '', 2, 'Social Security Card'),
+(13, '', 2, 'Motor Vehicle Report (MVR)'),
+(14, '', 2, 'Driver''s Physical Examination Form');
 
 --
 -- Дамп данных таблицы `custom_document__form_status`
@@ -124,7 +119,7 @@ INSERT INTO `depot` (`dp_id`, `dp_HomeBase_Account_Number`, `dp_Name`, `dp_Conta
 --
 
 INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate_ID`, `d_Driver_SSN`, `d_Entry_Date`, `d_Employment_Type`, `d_Suffix`, `d_Account`, `d_First_Name`, `d_Middle_Name`, `d_Last_Name`, `d_Gender`, `d_Hair_Color`, `d_Eye_Color`, `d_Height_Feet`, `d_Height_Inches`, `d_Date_Of_Birth`, `d_Date_Of_Hire`, `d_Description`, `d_Telephone_Number1`, `d_Telephone_Number2`, `d_Telephone_Number3`, `d_Fax`, `d_Status`, `d_Total Miles Driven`, `d_Physical_Exam_Date`, `d_Doctor_Name`, `d_Medical_Card_Issue_Date`, `d_Medical_Card_Expiration_Date`, `d_DOT_Regulated`, `d_TWIC`, `d_TWIC_expiration`, `d_R_A`, `d_R_A_expiration`, `d_last_update_date`) VALUES
-(1, 1, 1, '123', '123223123', '2010-11-04 00:00:00', 2, '', NULL, 'test1', 'rr', 'esdfsdf', 1, 1, 2, 1, 1, '2010-11-01', '2010-11-03', 'test', '123123123', '', '', NULL, 1, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes', '', NULL, '', NULL, '2010-12-20 13:47:17'),
+(1, 1, 1, '123', '123223123', '2010-11-04 00:00:00', 2, '', NULL, 'test1', 'rr', 'esdfsdf', 1, 1, 2, 1, 1, '2010-11-01', '2010-11-03', 'test', '123123123', '', '', NULL, 2, 1122, '2010-11-03', 'doctor 1', '2010-11-03', '2010-11-30', 'Yes', '', NULL, '', NULL, '2011-01-13 16:14:52'),
 (2, 1, NULL, NULL, '222333444', '2010-11-01 00:00:00', 4, NULL, NULL, 'driver nave 2', 'Driver-mid-name2', 'Driver-last-name2', 2, 1, 4, 3, 1, '1995-11-23', '2010-11-01', 'asdas dasd asd as', '123123123', NULL, NULL, NULL, 1, NULL, '2010-11-06', 'doctor name 2', '2010-11-01', '2010-11-30', 'No', NULL, NULL, NULL, NULL, NULL),
 (3, 1, 1, NULL, '123456789', '2010-11-05 00:11:33', 4, '', NULL, 'asd', '', 'asd', 1, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, '123123123', '', '', NULL, 2, NULL, NULL, '', NULL, NULL, NULL, '', NULL, '', NULL, '2010-12-22 22:07:57'),
 (4, 1, NULL, NULL, '123426789', '2010-11-05 00:12:25', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '1990-12-12', NULL, NULL, NULL, NULL, NULL, NULL, 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
@@ -139,12 +134,6 @@ INSERT INTO `driver` (`d_ID`, `d_homebase_ID`, `d_depot_ID`, `d_Driver_Alternate
 (13, NULL, NULL, NULL, '234234234', '2010-11-24 11:32:31', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-11-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (14, 1, 2, NULL, '000000005', '2010-11-24 18:51:20', 4, NULL, NULL, 'sdf sdf', 'dsf fd sd', 'sdf df ', 2, 3, 3, 8, 6, '2010-11-01', NULL, NULL, '3242342332', '', '234234234', NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
 (15, NULL, NULL, NULL, '122212312', '2010-12-20 11:59:44', 4, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2010-12-01', NULL, NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-
-
---
--- Дамп данных таблицы `driver_service_hours`
---
-
 
 --
 -- Дамп данных таблицы `driver__employment_type`
@@ -366,20 +355,27 @@ INSERT INTO `incident_cause` (`ic_id`, `ic_type`) VALUES
 -- Дамп данных таблицы `inspection`
 --
 
-
 --
 -- Дамп данных таблицы `inspection_types`
 --
 
+INSERT INTO `inspection_types` (`it_id`, `it_type`, `it_parameters`) VALUES
+(1, 'Local', 'Local parameters'),
+(2, 'Federal', 'Federal parameters'),
+(3, 'State', 'State parameters'),
+(4, 'Company', 'Company parameters');
+
 
 --
--- Дамп данных таблицы `inspection__result`
+-- Дамп данных таблицы `inspection_result`
 --
 
-INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
+INSERT INTO `inspection_result` (`ir_id`, `ir_result`) VALUES
+(4, 'Defects'),
+(2, 'Failed'),
+(3, 'Out of Service'),
 (1, 'Passed'),
-(2, 'Failed - Out of Service'),
-(3, 'Failed – Defects Only');
+(5, 'Shop Notes');
 
 --
 -- Дамп данных таблицы `insurance`
@@ -416,9 +412,31 @@ INSERT INTO `inspection__result` (`ir_id`, `ir_type`) VALUES
 -- Дамп данных таблицы `service_provider`
 --
 
-INSERT INTO `service_provider` (`sp_id`, `sp_name`, `sp_contact`, `sp_type`, `sp_telephone_number`, `sp_fax`, `sp_address1`, `sp_address2`, `sp_city`, `sp_state_id`, `sp_postal_code`, `sp_description`, `sp_dot_regulated`, `sp_status`, `sp_entry_date`, `sp_last_modified_datetime`) VALUES
-(1, 'test sp', '', 'Repair', '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52'),
-(2, 'Service Company', '', 'Tow Truck', '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52');
+INSERT INTO `service_provider` (`sp_id`, `sp_name`, `sp_contact`, `sp_type_id`, `sp_telephone_number`, `sp_fax`, `sp_address1`, `sp_address2`, `sp_city`, `sp_state_id`, `sp_postal_code`, `sp_description`, `sp_dot_regulated`, `sp_status`, `sp_entry_date`, `sp_last_modified_datetime`) VALUES
+(1, 'test sp', '', 3, '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52'),
+(2, 'Service Company', '', 2, '1', '', '1', '', 'tt', 3, 'ttt', '', 'No', 'Open', '2011-01-01', '2011-01-14 12:54:52'),
+(3, 'test', '', 1, '2', '', 'e', '', 'e', 1, '1', '', 'No', 'Open', '2011-01-26', '2011-01-26 14:58:36');
+
+--
+-- Дамп данных таблицы `service_provider_types`
+--
+
+INSERT INTO `service_provider_types` (`spt_id`, `spt_type`) VALUES
+(13, 'Attorney'),
+(14, 'Background Check'),
+(10, 'Clinic'),
+(11, 'DMV'),
+(12, 'Drug Testing'),
+(1, 'Inspection'),
+(5, 'Insurance'),
+(6, 'Law Enforcement - Federal'),
+(8, 'Law Enforcement - Local'),
+(7, 'Law Enforcement - State'),
+(9, 'Physician'),
+(2, 'Repair'),
+(4, 'Service'),
+(3, 'Towing');
+
 
 --
 -- Дамп данных таблицы `state`
@@ -477,6 +495,10 @@ INSERT INTO `state` (`s_id`, `s_name`) VALUES
 (50, 'WV'),
 (51, 'WY');
 
+--
+-- Дамп данных таблицы `travel_direction`
+--
+
 INSERT INTO `travel_direction` (`td_id`, `td_type`) VALUES
 (1, 'North'),
 (2, 'South'),
@@ -487,6 +509,14 @@ INSERT INTO `travel_direction` (`td_id`, `td_type`) VALUES
 (7, 'South East'),
 (8, 'South West');
 
+--
+-- Дамп данных таблицы `user`
+--
+
+INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
+(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
+(2, NULL, 1, 1, 1, 1, 9, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
+(3, NULL, 1, 1, 1, 1, 9, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
 
 --
 -- Дамп данных таблицы `user_role`
@@ -645,14 +675,12 @@ INSERT INTO `violation` (`v_id`, `v_code`, `v_type`, `v_item`, `v_item_specific`
 (126, 'B6', 'Driver', 'VIOLATION RESULTING IN PROPERTY DAMAGE', NULL),
 (127, 'B7', 'Driver', 'SPEEDING IN A SCHOOL ZONE', NULL);
 
+--
+-- Дамп данных таблицы `violation_assignment`
+--
 
 
-
-
-
-
-INSERT INTO `user` (`u_ID`, `u_User_ID`, `u_Parent_Company_ID`, `u_Company_ID`, `u_Homebase_ID`, `u_Depot_ID`, `u_Role_ID`, `u_User_Name`, `u_Password`, `u_Status`, `u_Title`, `u_Date_Created`, `u_Allowed_Access_To_DQF`, `u_Allowed_Access_To_VIM`, `u_Allowed_Access_To_Accident`, `u_First_Name`, `u_Last_Name`, `u_Email`, `u_Telephone_Number`, `u_Fax`, `u_Address1`, `u_Address2`, `u_City`, `u_State`, `u_Postal_Code`) VALUES
-(1, NULL, 1, 1, 1, 1, 1, 'root', 'root', 1, NULL, '2010-10-28 14:15:10', '', '', '', 'Admin', 'Super', '', '', NULL, '', NULL, '', 1, ''),
-(2, NULL, 1, 1, 1, 1, 9, 'user', 'user', 1, NULL, '2010-10-28 15:17:59', '', '', '', 'User', 'Simple', '', '', NULL, '', NULL, '', 2, ''),
-(3, NULL, 1, 1, 1, 1, 9, 'test', 'test', 1, '', '2010-10-26 10:10:10', '', '', '', 'test', 'test', '', '', '', '', '', '', 3, '');
+--
+-- Дамп данных таблицы `witness`
+--
 

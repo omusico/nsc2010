@@ -59,7 +59,7 @@
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr class="color-dark">
                     <td>Type</td>
-                    <td><span id="sp_type_view"></span></td>
+                    <td><span id="sp_type_id_view"></span></td>
                 </tr>
                 <tr>
                     <td>Telephone</td>
@@ -170,9 +170,13 @@
 <!--                    TODO Implement allowing to change type if SP hasn't any assignment, 
                     else give to user a confirmation about deleting all assignment. -->
                     <td>
-                        <input type="radio" name="sp_type" class="sp_type_class" value="Insurance" checked="checked">&nbsp;Insurance&nbsp;
-                        <input type="radio" name="sp_type" class="sp_type_class" value="Tow Truck">&nbsp;Tow Truck&nbsp;
-                        <input type="radio" name="sp_type" class="sp_type_class" value="Repair">&nbsp;Repair&nbsp;
+                        <select id="sp_type_id" class="spTypeSelect">
+                            <?php
+                                foreach ($this->sptList as $key => $value) {
+                                    echo '<option value="' . $key . '">' . $value . '</option>';
+                                }
+                            ?>
+                        </select>
                     </td>
                 </tr>
                 

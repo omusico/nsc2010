@@ -77,7 +77,7 @@ class Incident_WitnessController extends Zend_Controller_Action
                 $witnesses = $witnessModel->getListByIncident($incidentId);
 
                 $layout = new Zend_Layout();
-                $layout->setLayoutPath(APPLICATION_PATH.'/modules/incident/views/scripts/partials/index/');
+                $layout->setLayoutPath(APPLICATION_PATH . '/modules/incident/views/scripts/partials/index/');
                 $layout->i_ID = $incidentId;
                 $layout->header =  'Witness Information - involved in Incident';
 
