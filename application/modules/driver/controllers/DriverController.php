@@ -175,9 +175,7 @@ class Driver_DriverController extends Zend_Controller_Action
             # Breadcrumbs & page title goes here:
             $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
             $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
-            $driverID = (int)$this->_request->getParam('driver_id');
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
-
             $this->view->driverInfo = $driverInfo;
             $this->view->documentsFormList = Documents_Model_CustomDocument::getList($driverID);
         }

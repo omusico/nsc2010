@@ -123,9 +123,9 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
                       SELECT
                         *
                       FROM driver
-                      JOIN driver_address_history ON driver_address_history.dah_Driver_ID = driver.d_ID
+                      LEFT JOIN driver_address_history ON driver_address_history.dah_Driver_ID = driver.d_ID
                         AND dah_Current_Address = "YES"
-                      JOIN state ON state.s_id = driver_address_history.dah_State
+                      LEFT JOIN state ON state.s_id = driver_address_history.dah_State
                       WHERE d_ID = "' . $driverID . '"
         ');
          $row = $stmt->fetch();

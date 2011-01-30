@@ -6,6 +6,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         define('LOCALHOST', "127.0.0.1");
         define('ADMIN_EMAIL', "skachkov@guns.ru");
+        define('SHELL_PATH', "/home/vlad/nsc2010/public/shell/");
     }
     protected function _initAutoload()
     {

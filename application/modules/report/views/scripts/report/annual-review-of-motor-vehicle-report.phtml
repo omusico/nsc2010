@@ -20,8 +20,7 @@
   </div>
   </div>
           <?php
-            $date = new Zend_Date();
-            print_r($this->driverInfo); ?>
+            $date = new Zend_Date(); ?>
   <div id="main" class="driver-information">
       <div class="post-top">
       <div class="post-bottom">
@@ -30,7 +29,7 @@
 		<tbody>
         <tr >
 	    	<th colspan="2">
-                <input type="hidden" value="<?php echo $this->driverInfo['d_ID']; ?>" name="DriverID">
+                <input type="hidden" value="<?php echo $this->driverInfo['d_ID']; ?>" name="raromv_driver_id">
                 <input type="hidden" value="46851" name="DIWID">
                 <h2>INFORMATION</h2>
             </th>
@@ -70,16 +69,16 @@
 		<tr><td colspan="2">&nbsp;</td></tr>
 		<tr class="color-dark">
 	    	<td >Review Date</td>
-			<td ><input type="text" maxlength="10" size="10" class="datepicker" value="1/25/2011" name="ReviewDate"></td>
+			<td ><input type="text" maxlength="10" size="10" class="datepicker" value="1/25/2011" name="raromv_review_date"></td>
 		</tr>
         <tr>
 	    	<td >Name of person reviewing</td>
-			<td ><input type="text" maxlength="50" value="Hal Smith" size="30" name="Name"></td>
+			<td ><input type="text" maxlength="50" value="Hal Smith" size="30" name="raromv_name_of_person_reviewing"></td>
 		</tr>
         <tr class="color-dark" >
 	    	<td >Confirm Review</td>
 	    	<td>
-				<input type="checkbox" name="ConfirmReview">
+				<input type="checkbox" name="raromv_confirm_review">
 				<span color="#ff0000"><b>&nbsp;&nbsp;&nbsp; Yes, I Have Reviewed The Motor Vehicle Report</b></span><br>
 	    	</td>
 		</tr>
@@ -88,19 +87,19 @@
 		<tr  class="color-dark">
 	    	<td >Select one</td>
 	    	<td>
-				<input type="radio" value="1" name="Qualify">&nbsp;&nbsp;&nbsp;
+				<input type="radio" value="1" name="raromv_driver_info">&nbsp;&nbsp;&nbsp;
 	    	   	Driver MEETS MINIMUM REQUIREMENTS for safe driving<br/>
-	    		<input type="radio" value="2" name="Qualify">&nbsp;&nbsp;&nbsp;
+	    		<input type="radio" value="2" name="raromv_driver_info">&nbsp;&nbsp;&nbsp;
 		    	Driver is DISQUALIFIED to drive a motor vehicle pursuant to Section 391.15<br>
 	    	</td>
     	</tr>
         <tr >
 	    	<td >Remarks</td>
-			<td ><textarea name="Remarks" cols="40" rows="3"></textarea></td>
+			<td ><textarea name="raromv_remarks" cols="40" rows="3"></textarea></td>
 		</tr>
         <tr  class="color-dark">
 	    	<td></td>
-			<td><input type="button" value="Save" /></td>
+			<td><input type="button" value="Save" onclick="validateAnnualReviewOfMotorVehicleReport();" /></td>
 		</tr>
 
     </tbody>

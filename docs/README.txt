@@ -13,6 +13,10 @@ In application/Bootstrap.php:
         # Admin email. Used to recieve notifications
         define('ADMIN_EMAIL', "skachkov@guns.ru");
 
+    Shell execute:
+        # Define path to programs directory:
+        define('SHELL_PATH', "/home/vlad/nsc2010/public/shell/");
+
 VARIABLES USED IN PROJECT
 =========================
 $_SESSION['driver_info']['DriverEmploymentType_list'] # contains list of employment types
