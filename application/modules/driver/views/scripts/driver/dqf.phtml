@@ -2,6 +2,9 @@
             <span class="name-driver">Driver:&nbsp;<span><?php echo $this->driverInfo['d_First_Name']." ".$this->driverInfo['d_Middle_Name']." ".$this->driverInfo['d_Last_Name'];?></span></span>
           </div>
 
+          <?php
+                $date = new Zend_Date();
+          ?>
 <div class="breadcrumbs-left">
     <div class="breadcrumbs-right">
         <div class="breadcrumbs-middle">
@@ -45,7 +48,7 @@
           <td>NSC Check</td>
 
         </tr>
-            <?php echo $this->partial('partials/_dqf-form-row.phtml',array('documentsFormList' => $this->documentsFormList,'driverInfo' => $this->driverInfo)); ?>
+            <?php echo $this->partial('partials/_dqf-form-row.phtml',array('documentsList' => $this->documentsList,'driverInfo' => $this->driverInfo)); ?>
 
 
         <tr><td colspan="8">&nbsp;</td></tr>
@@ -75,7 +78,20 @@
           </ul>
           <ul>
             <li>Renewal Actions<ul>
-              <li><a href="/report/report/annual-review-of-motor-vehicle-report/driver_id/<?php echo $this->driverInfo['d_ID']; ?>">Annual Review of Motor Vehicle Report</a></li>
+              <li>
+                  <a href="/report/report/annual-review-of-motor-vehicle-report/driver_id/<?php echo $this->driverInfo['d_ID']; ?>">Annual Review of Motor Vehicle Report</a>
+            <?php if(sizeof($this->driverAnnualReviewOfMotorVehicleReportList)<1){?>
+              </li>
+            <?php }else{ ?>
+                <ul>
+                    <?php
+                        foreach($this->driverAnnualReviewOfMotorVehicleReportList as $k=>$v){
+                            $date->set($v['raromv_review_date'],"yyyy-MM-dd");
+                            echo "<li style='margin-left:15px;'><img src='/images/status-ok.png' height='15px' width='15px' style='padding-right:5px;' /><a href='/pdf/form/show-form/pdf-form/Annual Review of Driving Record.pdf/driver-id/".$this->driverInfo['d_ID']."/report_id/".$v['raromv_id']."'>".($date->toString("MM/dd/yyyy"))."</a></li>";
+                        }
+                    ?>
+                </ul>
+            <?php } ?>
               <li><a href="#">Request Record of Violations</a></li></ul></li>
 
           </ul>

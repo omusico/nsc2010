@@ -30,7 +30,7 @@
         <tr >
 	    	<th colspan="2">
                 <input type="hidden" value="<?php echo $this->driverInfo['d_ID']; ?>" name="raromv_driver_id">
-                <input type="hidden" value="46851" name="DIWID">
+                <input type="hidden" value="<?php echo $_SESSION['ussser'][0]['u_ID'];?>" name="raromv_review_person_id">
                 <h2>INFORMATION</h2>
             </th>
 		</tr>
@@ -73,12 +73,12 @@
 		</tr>
         <tr>
 	    	<td >Name of person reviewing</td>
-			<td ><input type="text" maxlength="50" value="Hal Smith" size="30" name="raromv_name_of_person_reviewing"></td>
+			<td ><input type="text" maxlength="50" value="<?php echo $_SESSION['ussser'][0]['u_First_Name'] + $_SESSION['ussser'][0]['u_Last_Name'];?>" size="30" name="raromv_name_of_person_reviewing"></td>
 		</tr>
         <tr class="color-dark" >
 	    	<td >Confirm Review</td>
 	    	<td>
-				<input type="checkbox" name="raromv_confirm_review">
+				<input type="checkbox" value="checked" name="raromv_confirm_review" id="raromv_confirm_review">
 				<span color="#ff0000"><b>&nbsp;&nbsp;&nbsp; Yes, I Have Reviewed The Motor Vehicle Report</b></span><br>
 	    	</td>
 		</tr>

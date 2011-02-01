@@ -176,8 +176,12 @@ class Driver_DriverController extends Zend_Controller_Action
             $this->view->breadcrumbs = "<a href='/driver/driver/view-driver-Information/id/".$driverID."'>Driver</a>&nbsp;&gt;&nbsp;Save Driver Information";
             $this->view->pageTitle = "DRIVER QUALIFICATION FILE";
             $driverInfo = Driver_Model_Driver::getDriverInfo($driverID);
+            $driverAnnualReviewOfMotorVehicleReportList = Report_Model_ReportAnnualReviewOfMotorVehicle::getList($driverID);
+
             $this->view->driverInfo = $driverInfo;
-            $this->view->documentsFormList = Documents_Model_CustomDocument::getList($driverID);
+            $this->view->driverAnnualReviewOfMotorVehicleReportList = $driverAnnualReviewOfMotorVehicleReportList;
+            $this->view->documentsFormList = Documents_Model_CustomDocument::getDocumentsFormList();
+            $this->view->documentsList = Documents_Model_CustomDocument::getList($driverID);
         }
     }
     public function driverCompleteAction()

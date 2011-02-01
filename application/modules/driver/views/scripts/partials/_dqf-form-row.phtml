@@ -1,47 +1,46 @@
 
 <?php
     $date = new Zend_Date();
-    $documentsFormList=$this->documentsFormList;
+    $documentsList=$this->documentsList;
 ?>
 
 <?php
-    for($i=0;$i<sizeof($documentsFormList);$i++){
+    foreach($documentsList as $k => $v){
+        if(array_key_exists($v['cdfn_ID'],$documentsList)){}
 ?>
-
-
 <tr <?php
-    if(gettype($i/2) == 'double'){ echo " class='color-dark' ";}
+    if(gettype($k/2) == 'double'){ echo " class='color-dark' ";}
 ?>>
-    <td><?php echo $documentsFormList[$i]['cdfn_name']; ?></td>
-          <td><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-6.gif";}else{echo "/images/ico-7.gif";}?>" alt=""/></td>
+    <td><?php echo $v['cdfn_name']; ?></td>
+          <td><img src="<?php if($v['cd_Date_Completed']!=""){echo "/images/ico-6.gif";}else{echo "/images/ico-7.gif";}?>" alt=""/></td>
           <td><?php
-            if(isset($documentsFormList[$i]['cd_Date_Requested'])){
-            $date->set($documentsFormList[$i]['cd_Date_Requested'],"yyyy-MM-dd");
+            if(isset($v['cd_Date_Requested'])){
+            $date->set($v['cd_Date_Requested'],"yyyy-MM-dd");
             echo $date->toString("MM/dd/yyyy");}
           ?></td>
           <td><?php
-            if(isset($documentsFormList[$i]['cd_Date_Completed'])){
-            $date->set($documentsFormList[$i]['cd_Date_Completed'],"yyyy-MM-dd");
+            if(isset($v['cd_Date_Completed'])){
+            $date->set($v['cd_Date_Completed'],"yyyy-MM-dd");
             echo $date->toString("MM/dd/yyyy");}
           ?></td>
           <td>
-              <a href="/documents/dqf/upload-form/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/"><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-8.gif";}else{echo "/images/ico-5.gif";}?>" alt=""/></a>
+              <a href="/documents/dqf/upload-form/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $v['cdfn_ID']; ?>/"><img src="<?php if(isset($v['cd_Date_Completed'])){echo "/images/ico-8.gif";}else{echo "/images/ico-5.gif";}?>" alt=""/></a>
           </td>
           <td>
-              <?php if(!isset($documentsFormList[$i]['cd_Date_Completed']) && $documentsFormList[$i]['cdfn_pdf']!=""){ 
-                        if($documentsFormList[$i]['cdfn_pdf']!=""){ ?>
-                            <a <?php if($documentsFormList[$i]['cdfn_pdf']!=""){echo " target='_blank' ";}?> href="/documents/pdf/<?php echo $documentsFormList[$i]['cdfn_pdf'];?>" ><img src="/images/ico-3.gif" alt=""/></a>
+              <?php if(!isset($v['cd_Date_Completed']) && $v['cdfn_pdf']!=""){
+                        if($v['cdfn_pdf']!=""){ ?>
+                            <a <?php if($v['cdfn_pdf']!=""){echo " target='_blank' ";}?> href="/pdf/form/show-form/pdf-form/<?php echo $v['cdfn_pdf'];?>/driver-id/<?php echo $this->driverInfo['d_ID'];?>" ><img src="/images/ico-3.gif" alt=""/></a>
                     <?php }else{ ?>
                             <img src="/images/ico-3.gif" alt=""/></a>
               <?php } }else{ ?>
-                <a href="/documents/dqf/view-scans/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $documentsFormList[$i]['cdfn_ID']; ?>/" ><img src="<?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></a>
+                <a href="/documents/dqf/view-scans/driver_id/<?php echo $this->driverInfo['d_ID'];?>/document_form_name_id/<?php echo $v['cdfn_ID']; ?>/" ><img src="<?php if(isset($v['cd_Date_Completed'])){echo "/images/ico-4.gif";}else{echo "/images/ico-3.gif";}?>" alt=""/></a>
               <?php } ?>
           </td>
           <td>
-              <?php if(isset($documentsFormList[$i]['cd_Date_Completed'])){?>
+              <?php if(isset($v['cd_Date_Completed'])){?>
                 <img src="/images/ico-2.gif" alt=""/>
               <?php } ?>
           </td>
-          <td><img src="<?php if(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="YES"){echo "/images/ico-1.gif";}elseif(strtoupper($documentsFormList[$i]['cd_DOT_Regulated'])=="NO"){echo "/images/ico-9.gif";}?>" alt=""/></td>
+          <td><img src="<?php if(strtoupper($v['cd_DOT_Regulated'])=="YES"){echo "/images/ico-1.gif";}elseif(strtoupper($v['cd_DOT_Regulated'])=="NO"){echo "/images/ico-9.gif";}?>" alt=""/></td>
 </tr>
         <?php } ?>

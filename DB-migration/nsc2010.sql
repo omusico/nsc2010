@@ -1036,16 +1036,17 @@ CREATE TABLE IF NOT EXISTS `person` (
 --
 
 DROP TABLE IF EXISTS `report__annual_review_of_motor_vehicle`;
-CREATE TABLE `report__annual_review_of_motor_vehicle` (
-`raromv_id` INT NOT NULL AUTO_INCREMENT,
-`raromv_driver_id` INT NOT NULL ,
-`raromv_review_date` DATE NOT NULL ,
-`raromv_name_of_person_reviewing_user_id` INT NOT NULL ,
-`raromv_confirm_review` INT NOT NULL ,
-`raromv_driver_info` INT NOT NULL ,
-`raromv_remarks` TEXT NULL,
+CREATE TABLE IF NOT EXISTS `report__annual_review_of_motor_vehicle` (
+  `raromv_id` int(11) NOT NULL AUTO_INCREMENT,
+  `raromv_driver_id` int(11) NOT NULL,
+  `raromv_review_person_id` int(11) NOT NULL,
+  `raromv_review_date` date NOT NULL,
+  `raromv_name_of_person_reviewing` varchar(250) COLLATE latin1_general_ci NOT NULL,
+  `raromv_confirm_review` int(11) NOT NULL,
+  `raromv_driver_info` int(11) NOT NULL,
+  `raromv_remarks` text COLLATE latin1_general_ci,
   PRIMARY KEY (`raromv_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 

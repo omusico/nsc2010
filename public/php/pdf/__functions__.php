@@ -2,7 +2,7 @@
 
 function create_pdf_package($array,$template = 0){
 
-       	include_once "forge_fdf.php";
+       	include_once "/php/forge_fdf.php";
 
 	if(method_exists("Zend_Registry", "get"))
 		$options = Zend_Registry::get("options");
@@ -64,11 +64,13 @@ function create_pdf_package($array,$template = 0){
 		$pfile = "Consortium_Enrollment_Renew_{$array["consortium_users_id"]}_".date("Y",$array["expiration_date"]).".pdf";
 
 	       	@unlink(APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile");
-			
-			# for Linux
-	       	#$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Package_Renewal.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
-	       	$cmd = "/php/pdftk/bin/pdftk.exe ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Package_Renewal.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
-		
+
+			# for Linux:
+	       	$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Package_Renewal.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
+
+            # for Windows:
+            #$cmd = "/php/pdftk/bin/pdftk.exe ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Package_Renewal.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
+
         	shell_exec($cmd);
 
 	}elseif($template == 2){
@@ -78,8 +80,10 @@ function create_pdf_package($array,$template = 0){
 	       	@unlink(APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile");
 
 			# for Linux7
-	       	#$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Add_Delete_Driver.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
 	       	$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Add_Delete_Driver.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
+
+            # for Windows:
+            #$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/Enrollment_Add_Delete_Driver.pdf fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
 		
         	shell_exec($cmd);
 
@@ -102,8 +106,10 @@ function create_pdf_package($array,$template = 0){
 
 		
 		# for Linux
-		#$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/$template fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
 		$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/$template fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
+
+        # for Windows:
+        #$cmd = "/usr/local/bin/pdftk ".APPLICATION_PATH."/../public_html/pdf_templates/$template fill_form ".APPLICATION_PATH."/../consortium_enrollment_pdf/data_{$array["consortium_users_id"]}.fdf output ".APPLICATION_PATH."/../consortium_enrollment_pdf/$pfile";
 	
 		shell_exec($cmd);
 
