@@ -60,7 +60,8 @@ function validateAnnualReviewOfMotorVehicleReport(){
             raromv_remarks: ""+raromv_remarks+""
         }, function(data){
             if(reg_int.test(data)==true){
-                //document.getElementById('driver_DriverPersonalInformation_Form').submit();
+                alert("Done!");
+                exit("/driver/driver/dqf/driver_id/"+raromv_driver_id);
                 return true;
             }else{
                 var $dialog = $('<div></div>')

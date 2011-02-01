@@ -18,13 +18,13 @@ class Barcode_AjaxDecoderController extends Zend_Controller_Action
     # 28-01-2011 by Vlad
     # param $scan = 
     public function decodeAction(){
-
         if(isset($_REQUEST['scan'])){
             $scan = $_REQUEST['scan'];
-            echo shell_exec(SHELL_PATH . "zxing /home/vlad/nsc2010/public/".$scan);
+            echo shell_exec("/home/vlad/nsc2010/public/shell/zxing '/home/vlad/nsc2010/public/$scan'");
         }else{
             echo "No document provided";
         }
+        echo "<img src='/".$scan."' />";
     }
 }
 
