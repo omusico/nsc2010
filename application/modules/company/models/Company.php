@@ -30,6 +30,7 @@ class Company_Model_Company extends Zend_Db_Table
         $stmt = $db->query(" SELECT *
                                 FROM company
                                LEFT JOIN contacts_table on contacts_table.ct_ID=company.c_Contact_Table_ID
+                               LEFT JOIN state on state.s_id=contacts_table.ct_State
                                WHERE c_id = ".$c_ID."
                                 ");
         $row = $stmt->fetchAll();

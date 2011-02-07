@@ -6,14 +6,20 @@ class Driver_Model_DriverEquipmentOperated extends Zend_Db_Table_Abstract
 
     public function getList($iDriverID=null)
     {
-        $table = new Driver_Model_DriverEquipmentOperated();
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         if((int)$iDriverID==null){
             return "ERROR: No Driver ID passed.";
         }else{
-            $row = $table->fetchAll("deo_Driver_ID = ".$iDriverID," deo_Equipment_Type_ID asc ");
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM driver__equipment_operated
+                            LEFT JOIN equipment_types on equipment_types.et_id = deo_Equipment_Type_ID
+                          WHERE deo_Driver_ID = '.$iDriverID.'
+                          ORDER BY deo_Equipment_Type_ID ASC
+            ');
         }
-        $rowsetArray = $row->toArray();
-        return $rowsetArray;
+        return $stmt->fetchAll();
     }
 
     public function getRecord($deo_ID)

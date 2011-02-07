@@ -46,7 +46,7 @@ function create_pdf_package($array,$template = 0){
        	"DRIVERTERMINATE" => ($array["terminate"] == 1)?"Yes":"Off",
        	"mydate" => date("l d, F Y"),
 	);
-
+        
        	$one = array();
        	$two = array();
        	$three = array();

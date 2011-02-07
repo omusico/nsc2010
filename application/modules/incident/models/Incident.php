@@ -230,4 +230,33 @@ class Incident_Model_Incident extends Zend_Db_Table_Abstract
 
         return $result;
     }
+
+
+
+    /**
+     * @author Vlad Skachkov 04.02.2011
+     *
+     * Returns all incidents for current driver
+     *
+     * @param int $$iDriverID
+     * @return array
+     */
+    # TODO: implement FULL tables join query
+    public function getFullList($iDriverID=null)
+    {
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+        if((int)$iDriverID==null){
+            return "ERROR: No Driver ID passed.";
+        }else{
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM incident
+                            LEFT JOIN equipment_types on equipment_types.et_id = deo_Equipment_Type_ID
+                          WHERE deo_Driver_ID = '.$iDriverID.'
+                          ORDER BY deo_Equipment_Type_ID ASC
+            ');
+        }
+        return $stmt->fetchAll();
+    }
 }

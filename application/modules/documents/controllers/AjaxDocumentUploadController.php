@@ -16,7 +16,7 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
     # Upload file to temp folder
     public function preUploadAction()
     {
-        $uploaddir = 'documents/_tmp/uploads/';
+        $uploaddir = '/home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/';
         $driver_ID = (int)$this->_request->getParam('driver_ID');
         $document_form_name_id = (int)$this->_request->getParam('document_form_name_id');
         if ((($_FILES['uploadfile']["type"] == "image/tiff")
@@ -71,23 +71,25 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
         if($msg==""){
             echo 0;
         }else{
-            $image_dir = "documents/dqf/driver_".$_GET['cd_Driver_ID']."/document_form_".$_GET['cd_Form_Name_ID']."/";
+            $image_dir = "/home/vlad/workspace/nsc2010/public/documents/dqf/driver_".$_GET['cd_Driver_ID']."/document_form_".$_GET['cd_Form_Name_ID']."/";
             if (file_exists($image_dir)==1) {
-                $result = copy("documents/_tmp/uploads/".$_GET['cd_Scan'],$image_dir . $_GET['cd_Scan']);
+                @shell_exec("chmod 777 -R  /home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/");
+                $result = copy("/home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/".$_GET['cd_Scan'],$image_dir . $_GET['cd_Scan']);
                 if (!$result){
                     echo "can not move: documents/_tmp/uploads/".$_GET['cd_Scan'] . " TO " . $image_dir . $_GET['cd_Scan'];
                 }
-                $result = unlink("documents/_tmp/uploads/".$_GET['cd_Scan']);
+                $result = unlink("/home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/".$_GET['cd_Scan']);
                 if (!$result){
                     echo "can not move: documents/_tmp/uploads/".$_GET['cd_Scan'] . " TO " . $image_dir . $_GET['cd_Scan'];
                 }
             } else {
-                if(mkdir($image_dir,777,true)){
-                    $result = copy("documents/_tmp/uploads/".$_GET['cd_Scan'],$image_dir . $_GET['cd_Scan']);
+                if(mkdir($image_dir,0777,true)){
+                    @shell_exec("chmod 777 -R  /home/vlad/workspace/");
+                    $result = copy("/home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/".$_GET['cd_Scan'],$image_dir . $_GET['cd_Scan']);
                     if (!$result){
                         echo "can not move: documents/_tmp/uploads/".$_GET['cd_Scan'] . " TO " . $image_dir . $_GET['cd_Scan'];
                     }
-                    $result = unlink("documents/_tmp/uploads/".$_GET['cd_Scan']);
+                    $result = unlink("/home/vlad/workspace/nsc2010/public/documents/_tmp/uploads/".$_GET['cd_Scan']);
                     if (!$result){
                         echo "can not move: documents/_tmp/uploads/".$_GET['cd_Scan'] . " TO " . $image_dir . $_GET['cd_Scan'];
                     }
@@ -101,6 +103,7 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
             $data['cd_Date_Completed'] = date("Y-m-d");
             $data['cd_Current_Page'] = $_GET['cd_Current_Page'];
             Documents_Model_CustomDocument::createRecord($data);
+            @shell_exec("chmod 777 -R  /home/vlad/workspace/");
             echo 1;
         }
 
@@ -109,7 +112,7 @@ class Documents_AjaxDocumentUploadController extends Zend_Controller_Action
     # delete uploaded file from Database and File System
     public function deleteImageDocumentAction(){
 
-        $image = "documents/dqf/driver_".$_GET['cd_Driver_ID']."/document_form_".$_GET['cd_Form_Name_ID']."/" . $_GET['cd_Scan'];
+        $image = "/home/vlad/workspace/nsc2010/public/documents/dqf/driver_".$_GET['cd_Driver_ID']."/document_form_".$_GET['cd_Form_Name_ID']."/" . $_GET['cd_Scan'];
         if (file_exists($image)==1) {
             $result = unlink($image);
             if (!$result){

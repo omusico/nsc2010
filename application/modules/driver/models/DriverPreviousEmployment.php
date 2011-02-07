@@ -13,6 +13,7 @@ class Driver_Model_DriverPreviousEmployment extends Zend_Db_Table_Abstract
                        *
                         FROM driver__previous_employment
                         LEFT JOIN employer ON employer.emp_ID = driver__previous_employment.dpe_Employer_ID
+                        LEFT JOIN state ON state.s_id = emp_State_ID
                       WHERE dpe_Driver_ID='.$iDriver.'
         ');
          return $stmt->fetchAll();

@@ -6,15 +6,27 @@ class Driver_Model_DriverAddressHistory extends Zend_Db_Table_Abstract
 
     public function getList($iDriverID=null)
     {
-        $table = new Driver_Model_DriverAddressHistory();
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         if((int)$iDriverID==null){
-            $row = $table->fetchAll(" dah_ID <> 0 "," dah_row_created DESC ");
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM driver_address_history
+                            LEFT JOIN state on state.s_id = dah_State
+                          WHERE dah_ID <> 0
+                          ORDER BY dah_row_created DESC
+            ');
         }else{
-            $sWhere = "dah_Driver_ID = ".$iDriverID;
-            $row = $table->fetchAll("dah_Driver_ID = ".$iDriverID," dah_row_created DESC ");
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM driver_address_history
+                            LEFT JOIN state on state.s_id = dah_State
+                          WHERE dah_Driver_ID = '.$iDriverID.' 
+                          ORDER BY dah_row_created DESC
+            ');
         }
-        $rowsetArray = $row->toArray();
-        return $rowsetArray;
+        return $stmt->fetchAll();
     }
 
     public function getRecord($dah_ID)

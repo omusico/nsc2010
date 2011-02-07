@@ -5,14 +5,27 @@ class Driver_Model_License extends Zend_Db_Table_Abstract
 
     public function getList($iDriverID=null)
     {
-        $table = new Driver_Model_License();
+        $db = Zend_Db_Table_Abstract::getDefaultAdapter();
         if((int)$iDriverID==null){
-            $row = $table->fetchAll(" l_Driver_ID <> 0 "," l_Expiration_Date DESC ");
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM license
+                            LEFT JOIN state on state.s_id = l_Driver_Issue_State_id
+                          WHERE l_Driver_ID <> 0
+                          ORDER BY l_Expiration_Date DESC
+            ');
         }else{
-            $row = $table->fetchAll("l_Driver_ID = ".$iDriverID," l_Expiration_Date DESC ");
+            $stmt = $db->query('
+                          SELECT
+                           *
+                          FROM license
+                            LEFT JOIN state on state.s_id = l_Driver_Issue_State_id
+                          WHERE l_Driver_ID = '.$iDriverID.'
+                          ORDER BY l_Expiration_Date DESC
+            ');
         }
-        $rowsetArray = $row->toArray();
-        return $rowsetArray;
+        return $stmt->fetchAll();
     }
     
     public function getRecord($l_ID)

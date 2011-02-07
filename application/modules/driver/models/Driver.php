@@ -134,6 +134,30 @@ class Driver_Model_Driver extends Zend_Db_Table_Abstract
     /**
      * @author Vlad Skachkov 04.11.2010
      *
+     * get driver FULL information (full - means that all foreign keys will be replaced by values)
+     *
+     * @param int $driverID
+     * @return mixed
+     */
+     public static function getFullDriverInfo($driverID)
+    {
+         $db = Zend_Db_Table_Abstract::getDefaultAdapter();
+         $stmt = $db->query('
+                      SELECT
+                        *
+                      FROM driver
+                      LEFT JOIN driver_address_history ON driver_address_history.dah_Driver_ID = driver.d_ID
+                        AND dah_Current_Address = "YES"
+                      LEFT JOIN driver__employment_type ON driver__employment_type.det_id = d_Employment_Type
+                      LEFT JOIN state ON state.s_id = driver_address_history.dah_State
+                      WHERE d_ID = "' . $driverID . '"
+        ');
+         $row = $stmt->fetch();
+         return $row;
+    }
+    /**
+     * @author Vlad Skachkov 04.11.2010
+     *
      * save driver information
      *
      * @param mixed $data
