@@ -10,13 +10,23 @@ class Pdf_FormController extends Zend_Controller_Action
     }
 
     public function showFormAction(){
+        error_reporting(0);
 
         $pdf_form = $this->_request->getParam('pdf-form');
         $dirver_id = (int)$this->_request->getParam('driver-id');
 
-        include_once "/home/vlad/nsc2010/public/php/pdf/forge_fdf.php";
-        include_once "/home/vlad/nsc2010/public/php/qr/qrlib.php";
+        $project_dir = "/home/vlad/workspace/nsc2010";
 
+        include_once "$project_dir/public/php/pdf/forge_fdf.php";
+        #include_once "php/pdf/forge_fdf.php";
+        include_once "$project_dir/public/php/qr/qrlib.php";
+        #include_once "php/qr/qrlib.php";
+
+            $PNG_TEMP_DIR = "$project_dir/public/documents/_tmp/qr/";
+            #$PNG_TEMP_DIR = "documents/_tmp/qr/";
+            $PNG_WEB_DIR =  "$project_dir/public/documents/_tmp/qr/";
+            #$PNG_WEB_DIR =  'documents/_tmp/qr/';
+        
         $date = new Zend_Date();
 
         if($pdf_form=="Annual Review of Driving Record.pdf"){
@@ -35,6 +45,34 @@ class Pdf_FormController extends Zend_Controller_Action
                 ($arr[$i]["raromv_driver_info"]==1) ? $array["ANNUAL_Req".($i+1)] = "Yes" : $array["ANNUAL_Req".($i+1)] = "Off";
                 ($arr[$i]["raromv_driver_info"]==2) ? $array["ANNUAL_Disqualif".($i+1)] = "Yes" : $array["ANNUAL_Disqualif".($i+1)] = "Off";
             }
+            # WTF???
+            $one = array();
+            $two = array();
+            $three = array();
+
+            # creating temp file which contains fields for empty PDF-form:
+            $md5rand = rand(1000,9999)."_".rand(1000,9999);
+            $file_name = "documents/_tmp/pdf_fdf/data_".$md5rand. "___" . date("Y-m-d").".fdf";
+            @unlink("$project_dir/public/$file_name");
+            $fdf = forge_fdf("localhost", $array, $one, $two, $three);
+            $file = fopen("$project_dir/public/" . $file_name,"a+");
+            fwrite($file,$fdf);
+            fclose($file);
+
+            # creating filled temporary PDF-form:
+            $pfile = $md5rand . "__" . str_replace(".pdf","",$pdf_form) . "__" . date("Y-m-d").".pdf";
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
+            # for Linux:
+            $cmd = "$project_dir/public/shell/pdftk '$project_dir/public/documents/pdf/$pdf_form' fill_form '$project_dir/public/$file_name' output '$project_dir/public/documents/_tmp/filled_pdf/$pfile'";
+
+            shell_exec($cmd);
+            # remove temp files:
+            @unlink($project_dir."/public/".$file_name);
+
+            # show document to user:
+            header("Content-type: application/pdf");
+            readfile("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
         }
         if($pdf_form=="Certificate of Compliance.pdf"){
             $arr = Report_Model_ReportAnnualReviewOfMotorVehicle::getRecord($dirver_id);
@@ -52,6 +90,34 @@ class Pdf_FormController extends Zend_Controller_Action
                 ($arr[$i]["raromv_driver_info"]==1) ? $array["ANNUAL_Req".($i+1)] = "Yes" : $array["ANNUAL_Req".($i+1)] = "Off";
                 ($arr[$i]["raromv_driver_info"]==2) ? $array["ANNUAL_Disqualif".($i+1)] = "Yes" : $array["ANNUAL_Disqualif".($i+1)] = "Off";
             }
+            # WTF???
+            $one = array();
+            $two = array();
+            $three = array();
+
+            # creating temp file which contains fields for empty PDF-form:
+            $md5rand = rand(1000,9999)."_".rand(1000,9999);
+            $file_name = "documents/_tmp/pdf_fdf/data_".$md5rand. "___" . date("Y-m-d").".fdf";
+            @unlink("$project_dir/public/$file_name");
+            $fdf = forge_fdf("localhost", $array, $one, $two, $three);
+            $file = fopen("$project_dir/public/" . $file_name,"a+");
+            fwrite($file,$fdf);
+            fclose($file);
+
+            # creating filled temporary PDF-form:
+            $pfile = $md5rand . "__" . str_replace(".pdf","",$pdf_form) . "__" . date("Y-m-d").".pdf";
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
+            # for Linux:
+            $cmd = "$project_dir/public/shell/pdftk '$project_dir/public/documents/pdf/$pdf_form' fill_form '$project_dir/public/$file_name' output '$project_dir/public/documents/_tmp/filled_pdf/$pfile'";
+
+            shell_exec($cmd);
+            # remove temp files:
+            @unlink("$project_dir/public/$file_name");
+
+            # show document to user:
+            header("Content-type: application/pdf");
+            readfile("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
         }
         if($pdf_form=="APPLICATIONFOREMPLOYMENT.pdf"){
             $driverInfo = Driver_Model_Driver::getFullDriverInfo($dirver_id);
@@ -74,10 +140,6 @@ class Pdf_FormController extends Zend_Controller_Action
             #$driverIncidentAndViolationInfo = Incident_Model_Incident::getFullList($dirver_id);
             #print_r($driverIncidentAndViolationInfo);
 
-            #$PNG_TEMP_DIR = "/home/vlad/nsc2010/public/documents/_tmp/qr/";
-            $PNG_TEMP_DIR = "documents/_tmp/qr/";
-            #$PNG_WEB_DIR =  '/home/vlad/nsc2010/public/documents/_tmp/qr/';
-            $PNG_WEB_DIR =  'documents/_tmp/qr/';
             if (!file_exists($PNG_TEMP_DIR))
                 mkdir($PNG_TEMP_DIR);
             $filename = $PNG_TEMP_DIR.'test.png';
@@ -266,7 +328,13 @@ class Pdf_FormController extends Zend_Controller_Action
             $array["Footer"] = "";
 
 
-            /* Creating empty PDF document with barcodes */
+            foreach ($array as $k=>$v){
+                if(!isset($array[$k]) || $array[$k]==null || $array[$k]==""){
+                    $array[$k]=" ";
+                }
+            }
+/*
+            /* Creating empty PDF document with barcodes *
             $page_number = 3;
             $pdf = new Zend_Pdf();
             for($i=0;$i<$page_number;$i++){
@@ -274,45 +342,74 @@ class Pdf_FormController extends Zend_Controller_Action
                 # время-форма-водила-страница-ранд
                 $code = mktime(date("H"),date("i"),date("s"),date("n"),date("j"),date("Y"))."-".$pdfFormInfo[0]['cdfn_ID']."-".$dirver_id."-".($i+1)."-".rand(0,9999);
                 $filename = $PNG_TEMP_DIR.$code.'.png';
-                QRcode::png($code, $filename, 'Q', 4, 2);
+                QRcode::png($code, $filename, 'Q', 3, 2);
                 $QRBarcode =  $PNG_WEB_DIR.basename($filename);
 
 
                 $barcode_image = Zend_Pdf_Image::imageWithPath($QRBarcode);
                 $page = new Zend_Pdf_Page(Zend_Pdf_Page::SIZE_A4);
-                $page->drawImage($barcode_image, 479, 720, 595, 842);
+                # A4 = 594px x 846px (W x H)
+                $page->drawImage($barcode_image, 478, 735, 595, 842);
                 $pdf->pages[$i] = $page;
             }
-            $pdf->save('documents/_tmp/filled_pdf/example'.$code."__empty".'.pdf');
+            $pdf->save('documents/_tmp/filled_pdf/'.$code."__empty".'.pdf');
+*/
+            # Create fdf-document, create filled pdf-document, merge filled pdf with pdf which contains barcodes
 
-        # WTF???
-        $one = array();
-        $two = array();
-        $three = array();
-        
-        # creating temp file which contains fields for empty PDF-form:
-        $md5rand = rand(1000,9999)."_".rand(1000,9999);
-        $file_name = "documents/_tmp/pdf_fdf/data_".$md5rand. "___" . date("Y-m-d").".fdf";
-        @unlink("/home/vlad/nsc2010/public/$file_name");
-        $fdf = forge_fdf("localhost", $array, $one, $two, $three);
-        $file = fopen("/home/vlad/nsc2010/public/" . $file_name,"a+");
-        fwrite($file,$fdf);
-        fclose($file);
+            $one = array();
+            $two = array();
+            $three = array();
 
-        # creating filled temporary PDF-form:
-        $pfile = $md5rand . "__" . str_replace(".pdf","",$pdf_form) . "__" . date("Y-m-d").".pdf";
-        @unlink("/home/vlad/nsc2010/public/documents/_tmp/filled_pdf/$pfile");
-        # for Linux:
-        $cmd = "/home/vlad/nsc2010/public/shell/pdftk '/home/vlad/nsc2010/public/documents/pdf/$pdf_form' fill_form '/home/vlad/nsc2010/public/$file_name' output '/home/vlad/nsc2010/public/documents/_tmp/filled_pdf/$pfile'";
+            # creating temp file which contains fields for empty PDF-form:
+            $md5rand = rand(1000,9999)."_".rand(1000,9999);
+            $file_name = "documents/_tmp/pdf_fdf/data_".$md5rand. "___" . date("Y-m-d").".fdf";
+            @unlink("$project_dir/public/$file_name");
+            $fdf = forge_fdf("localhost", $array, $one, $two, $three);
+            $file = fopen("$project_dir/public/" . $file_name,"a+");
+            fwrite($file,$fdf);
+            fclose($file);
 
-        shell_exec($cmd);
-        # remove temp files:
-        #@unlink("/home/vlad/nsc2010/public/$file_name");
+            # creating filled temporary PDF-form:
+            $pfile = $md5rand . "__" . str_replace(".pdf","",$pdf_form) . "__" . date("Y-m-d").".pdf";
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/$pfile");
+            # for Linux:
+            $cmd = "$project_dir/public/shell/pdftk '$project_dir/public/documents/pdf/$pdf_form' fill_form '$project_dir/public/$file_name' output '$project_dir/public/documents/_tmp/filled_pdf/premerge_$pfile'";
+            shell_exec($cmd);
 
-        # show document to user:
-        header("Content-type: application/pdf");
-        readfile("/home/vlad/nsc2010/public/documents/_tmp/filled_pdf/$pfile");
-        #@unlink("/home/vlad/nsc2010/public/documents/_tmp/filled_pdf/$pfile");
+
+
+
+            $pdf2 = Zend_Pdf::load($project_dir."/public/documents/_tmp/filled_pdf/premerge_".$pfile);
+            $i=1;
+            foreach ($pdf2->pages as $page){
+                # время-форма-водила-страница-ранд
+                $code = mktime(date("H"),date("i"),date("s"),date("n"),date("j"),date("Y"))."-".$pdfFormInfo[0]['cdfn_ID']."-".$dirver_id."-".$i."-".rand(0,9999);
+                $filename = $PNG_TEMP_DIR.$code.'.png';
+                QRcode::png($code, $filename, 'Q', 1, 1);
+                $QRBarcode =  $PNG_WEB_DIR.basename($filename);
+                $barcode_image = Zend_Pdf_Image::imageWithPath($QRBarcode);
+
+                # A4 = 595px x 842px (W x H)
+                $page->drawImage($barcode_image, 480, 713, 545, 778);
+
+                #remove image
+                @unlink($QRBarcode);
+                $i++;
+            }
+            unset($i);
+            $pdf2->save($project_dir."/public/documents/_tmp/filled_pdf/premerge2_".$pfile);
+
+            # show document to user:
+            header("Content-type: application/pdf");
+            readfile($project_dir."/public/documents/_tmp/filled_pdf/premerge2_".$pfile);
+
+            # remove temp files:
+            @unlink("$project_dir/public/$file_name");
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/premerge_".$pfile);
+            @unlink("$project_dir/public/documents/_tmp/filled_pdf/premerge2_".$pfile);
+           
+
+        }
 
     }
 

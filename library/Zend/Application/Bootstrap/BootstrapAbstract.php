@@ -17,7 +17,7 @@
  * @subpackage Bootstrap
  * @copyright  Copyright (c) 2005-2010 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: BootstrapAbstract.php 22665 2010-07-25 00:40:37Z ramon $
+ * @version    $Id: BootstrapAbstract.php 23602 2011-01-01 16:08:23Z ramon $
  */
 
 /**
@@ -95,7 +95,7 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
      *
      * @param  Zend_Application|Zend_Application_Bootstrap_Bootstrapper $application
      * @return void
-     * @throws Zend_Application_Bootstrap_Exception When invalid applicaiton is provided
+     * @throws Zend_Application_Bootstrap_Exception When invalid application is provided
      */
     public function __construct($application)
     {
@@ -414,7 +414,8 @@ abstract class Zend_Application_Bootstrap_BootstrapAbstract
     {
         if ($this->_pluginLoader === null) {
             $options = array(
-                'Zend_Application_Resource' => 'Zend/Application/Resource'
+                'Zend_Application_Resource'  => 'Zend/Application/Resource',
+                'ZendX_Application_Resource' => 'ZendX/Application/Resource'
             );
 
             $this->_pluginLoader = new Zend_Loader_PluginLoader($options);
